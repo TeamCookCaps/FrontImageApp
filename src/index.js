@@ -14,6 +14,7 @@ import PhotoDetail from './pages/PhotoDetail';
 import RecommandPhoto from './pages/RecommandPhoto';
 import Search from './pages/Search';
 import Trash from './pages/Trash';
+import CategoryDetail from './pages/CategoryDetail';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: '/recommand', element: <RecommandPhoto /> },
       { path: '/search', element: <Search /> },
       { path: '/trash', element: <Trash /> },
+      { path: '/categories', element: <CategoryDetail /> },
     ],
   },
 ]);
