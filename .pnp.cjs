@@ -29,6 +29,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@firebase/app", "npm:0.9.4"],\
+            ["@headlessui/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:1.7.13"],\
+            ["@heroicons/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:2.0.16"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:13.5.0"],\
@@ -4302,6 +4304,55 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@headlessui/react", [\
+        ["npm:1.7.13", {\
+          "packageLocation": "./.yarn/cache/@headlessui-react-npm-1.7.13-538d171a24-132e5fce86.zip/node_modules/@headlessui/react/",\
+          "packageDependencies": [\
+            ["@headlessui/react", "npm:1.7.13"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:1.7.13", {\
+          "packageLocation": "./.yarn/__virtual__/@headlessui-react-virtual-89e2b5bab2/0/cache/@headlessui-react-npm-1.7.13-538d171a24-132e5fce86.zip/node_modules/@headlessui/react/",\
+          "packageDependencies": [\
+            ["@headlessui/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:1.7.13"],\
+            ["@types/react", null],\
+            ["@types/react-dom", null],\
+            ["client-only", "npm:0.0.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@heroicons/react", [\
+        ["npm:2.0.16", {\
+          "packageLocation": "./.yarn/cache/@heroicons-react-npm-2.0.16-ce9dfa3c94-1e51bfec72.zip/node_modules/@heroicons/react/",\
+          "packageDependencies": [\
+            ["@heroicons/react", "npm:2.0.16"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:2.0.16", {\
+          "packageLocation": "./.yarn/__virtual__/@heroicons-react-virtual-da9c4b89fd/0/cache/@heroicons-react-npm-2.0.16-ce9dfa3c94-1e51bfec72.zip/node_modules/@heroicons/react/",\
+          "packageDependencies": [\
+            ["@heroicons/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:2.0.16"],\
+            ["@types/react", null],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@humanwhocodes/config-array", [\
         ["npm:0.11.8", {\
           "packageLocation": "./.yarn/cache/@humanwhocodes-config-array-npm-0.11.8-7955bfecc2-0fd6b3c54f.zip/node_modules/@humanwhocodes/config-array/",\
@@ -7483,6 +7534,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["caps", "workspace:."],\
             ["@firebase/app", "npm:0.9.4"],\
+            ["@headlessui/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:1.7.13"],\
+            ["@heroicons/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:2.0.16"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:776ae1983ffc49fb5be969651e0d9b242f569041ffb633fe0a34d33397c7c76c31b11345e4924ea3a32d5b962ec51099b345a04c21f2fbfd0670f0b7961539df#npm:13.5.0"],\
@@ -7631,6 +7684,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/clean-stack-npm-2.2.0-a8ce435a5c-2ac8cd2b2f.zip/node_modules/clean-stack/",\
           "packageDependencies": [\
             ["clean-stack", "npm:2.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["client-only", [\
+        ["npm:0.0.1", {\
+          "packageLocation": "./.yarn/cache/client-only-npm-0.0.1-07d3e9505c-0c16bf660d.zip/node_modules/client-only/",\
+          "packageDependencies": [\
+            ["client-only", "npm:0.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
