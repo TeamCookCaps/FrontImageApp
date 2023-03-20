@@ -14,6 +14,7 @@ import PhotoDetail from './pages/PhotoDetail';
 import RecommandPhoto from './pages/RecommandPhoto';
 import Search from './pages/Search';
 import Trash from './pages/Trash';
+import ProtectedRoute from './pages/ProtectedRoute';
 import CategoryDetail from './pages/CategoryDetail';
 
 const router = createBrowserRouter([
@@ -23,15 +24,78 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, path: '/', element: <Home /> },
-      { path: '/story', element: <Story /> },
-      { path: '/story/:storyId', element: <StoryDetail /> },
-      { path: '/like', element: <LikePhoto /> },
-      { path: '/allPhoto/:categoryId', element: <AllPhoto /> },
-      { path: '/allPhoto/:categoryId/:photoId', element: <PhotoDetail /> },
-      { path: '/recommand', element: <RecommandPhoto /> },
-      { path: '/search', element: <Search /> },
-      { path: '/trash', element: <Trash /> },
-      { path: '/categories', element: <CategoryDetail /> },
+      {
+        path: '/story',
+        element: (
+          <ProtectedRoute>
+            <Story />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/story/:storyId',
+        element: (
+          <ProtectedRoute>
+            <StoryDetail />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/like',
+        element: (
+          <ProtectedRoute>
+            <LikePhoto />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/allPhoto/:categoryId',
+        element: (
+          <ProtectedRoute>
+            <AllPhoto />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/allPhoto/:categoryId/:photoId',
+        element: (
+          <ProtectedRoute>
+            <PhotoDetail />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/recommand',
+        element: (
+          <ProtectedRoute>
+            <RecommandPhoto />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/search',
+        element: (
+          <ProtectedRoute>
+            <Search />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/trash',
+        element: (
+          <ProtectedRoute>
+            <Trash />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/categories',
+        element: (
+          <ProtectedRoute>
+            <CategoryDetail />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
