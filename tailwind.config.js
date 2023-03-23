@@ -6,6 +6,9 @@ module.exports = {
       backgroundImage: {
         blur: `url('../public/images/blur.jpg')`,
       },
+      fontFamily: {
+        raleway: ['Raleway', 'sans-serif'],
+      },
     },
   },
   plugins: [],

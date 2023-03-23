@@ -2,51 +2,8 @@ import React from 'react';
 
 export default function Banner() {
   return (
-    <section>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
-      <p>Best Photo, High Quality</p>
+    <section className="flex flex-col items-center">
+      <div className="h-44 w-2/4 bg-slate-300"></div>
     </section>
   );
 }
