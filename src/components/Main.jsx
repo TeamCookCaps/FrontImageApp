@@ -64,7 +64,7 @@ export default function Main() {
 
   return (
     <section className="flex flex-col gap-16 py-14 px-4">
-      <secition className="mb-8">
+      <secition className="mb-6">
         <header className="flex justify-between pb-5">
           <h2 className="text-3xl font-bold">좋아요 누른 사진</h2>
           <button className="border rounded-lg px-4 py-2 mr-11 font-normal text-xl hover:bg-yellow-300 hover:border-yellow-300">
@@ -73,15 +73,13 @@ export default function Main() {
         </header>
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {categories && categoryCount > 5
-            ? categories.slice(0, 5).map((category) => (
-                <div className="flex flex-col pb-10">
+            ? categories
+                .slice(0, 5)
+                .map((category) => (
                   <CategoryCard key={category.categoryId} category={category} />
-                </div>
-              ))
+                ))
             : categories.map((category) => (
-                <div className="flex flex-col pb-10">
-                  <CategoryCard key={category.categoryId} category={category} />
-                </div>
+                <CategoryCard key={category.categoryId} category={category} />
               ))}
         </ul>
       </secition>
@@ -90,12 +88,11 @@ export default function Main() {
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {categories &&
             categories.map((category) => (
-              <div className="flex flex-col pb-10">
-                <CategoryCard key={category.categoryId} category={category} />
-                <span className="pl-1 text-lg text-gray-400 font-normal">
-                  {category.numOfPictures}
-                </span>
-              </div>
+              <CategoryCard
+                key={category.categoryId}
+                category={category}
+                numOfPictures={category.numOfPictures}
+              />
             ))}
         </ul>
       </secition>
