@@ -45,10 +45,10 @@ export default function Trash() {
           <button class="bg-transparent hover:bg-blue-400 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded">모두 복구하기</button>
           <RemoveAllPhoto />
         </div>
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-4 lg:grid-cols-8 xl:gap-x-2">
           {products.map((product) => (
             <div key={product.photoId} className="group relative">
-              <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+              <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-40">
                 <img
                   src={product.imageSrc}
                   alt={product.imageAlt}
@@ -60,7 +60,7 @@ export default function Trash() {
                   <h3 className="text-sm text-gray-700">
                     <a href={product.href}>
                       <span aria-hidden="true" className="absolute inset-0" />
-                      <p className="mt-1 text-sm text-gray-500"># {product.category}</p>
+                      {/* <p className="mt-1 text-sm text-gray-500"># {product.category}</p> */}
                     </a>
                   </h3>
                 </div>
