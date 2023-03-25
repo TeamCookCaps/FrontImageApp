@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, set, get } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -31,5 +31,20 @@ export function logout() {
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
     callback(user);
+  });
+}
+
+export async function addNewPhoto(uid, photoUrls) {
+  return set(ref(database, `users/${uid}`), {
+    photoUrls,
+  });
+}
+
+export async function getPhotos() {
+  return get(ref(database, 'users')).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
   });
 }
