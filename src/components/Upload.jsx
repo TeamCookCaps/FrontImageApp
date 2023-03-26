@@ -1,32 +1,16 @@
 import React, { useState } from 'react';
-import { addNewPhoto } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 
 export default function Upload({ setShowModal, user: { uid } }) {
   const [files, setFiles] = useState([]);
-  //   const [photos, setPhotos] = useState({});
 
   const handleChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(selectedFiles && selectedFiles.slice(0, 30));
-    /*
-    const selectedFiles = Array.from(e.target.files);
-    setFiles(selectedFiles.slice(0, 30));
-
-    const selectedPhotos = selectedFiles.map((file) =>
-      URL.createObjectURL(file)
-    );
-    */
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const urls = await uploadImage(files); // cloudinary로 파일업로드 (임시)
-    await addNewPhoto(uid, urls); // cloudinary로 파일업로드 (임시)
-    console.log(urls);
-
-    // 서버로 사용자uid, 이미지 url보내기
-    /*setPhotos({ uid, files });
-    console.log(photos);*/
+    uploadImage(uid, files);
   };
 
   return (
