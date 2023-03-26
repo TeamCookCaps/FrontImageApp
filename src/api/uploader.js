@@ -1,20 +1,27 @@
-export async function uploadImage(files) {
-  // cloundinary에 이미지 올리고 url리턴해주는 함수(임시)
-  const data = new FormData();
-  const urls = [];
+import axios from 'axios';
 
-  for (let i = 0; i < files.length; i++) {
-    let file = files[i];
-    data.append('file', file);
-    data.append('upload_preset', process.env.REACT_APP_CLOUDINARY_PRESET);
+export async function uploadImage(uid, files) {
+  try {
+    const formData = new FormData();
+    formData.append('uid', uid);
+    for (let i = 0; i < files.length; i++) {
+      const fileJson = JSON.stringify(files[i]);
+      const blob = new Blob([fileJson], { type: 'application/json' });
+      formData.append('files', blob);
+    }
 
-    const res = await fetch(process.env.REACT_APP_CLOUDINARY_URL, {
-      method: 'POST',
-      body: data,
-    });
-    const result = await res.json();
-    urls.push(result.url);
+    // console에서 데이터 확인용
+    for (let datas of formData) {
+      console.log(datas);
+    }
+
+    // 서버에 데이터 전송
+    const response = await axios.post(
+      'http://localhost:3000/api/upload',
+      formData
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
   }
-
-  return urls;
 }
