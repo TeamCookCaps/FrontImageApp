@@ -5,8 +5,10 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
+  getAdditionalUserInfo,
 } from 'firebase/auth';
 import { getDatabase, ref, set, get } from 'firebase/database';
+import { signUp } from './signup';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,8 +22,21 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
 
-export function login() {
-  signInWithPopup(auth, provider).catch(console.error);
+export async function login() {
+  const result = await signInWithPopup(auth, provider).catch(console.error);
+  console.log(result);
+  const isNewUser = getAdditionalUserInfo(result).isNewUser;
+  // 최초 가입 된 사용자만 db에 저장
+  if(isNewUser){
+    signup(result);
+  }
+}
+
+function signup(result){
+  const uuid = result.user.uid;
+  const nick = result.user.displayName;
+  console.log(uuid+" "+nick);
+  signUp(uuid,nick);
 }
 
 export function logout() {
