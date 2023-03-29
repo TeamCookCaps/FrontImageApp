@@ -4,15 +4,24 @@ import { RxPerson } from 'react-icons/rx';
 import { MdLogout } from 'react-icons/md';
 import User from './User';
 import { useAuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
   const { user, login, logout } = useAuthContext();
   const [text, setText] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => setText(e.target.value);
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const handleOnKeyDown = (e) => {
+    if(e.code === 'Enter'){
+      navigate('/search',{state:{searchWord : `${text}`}});
+      setText('')
+    }
+  }
 
   return (
     <header className="w-full flex items-center justify-between mb-10">
@@ -29,6 +38,7 @@ export default function Header() {
             value={text}
             placeholder="Search photo"
             onChange={handleChange}
+            onKeyDown={handleOnKeyDown}
           />
         </form>
       )}

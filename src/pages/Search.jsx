@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const searchList = [
   {
@@ -27,11 +28,14 @@ const searchList = [
   },
 ]
 export default function Search() {
+  const location = useLocation();
+  const searchWord = location.state.searchWord;
+
   return (
     <section className="flex flex-col gap-5 py-5 px-5">
       <section className="mb-4">
         <header>
-          <h2 className="text-2xl font-bold tracking-tight text-black justify-start">"과일" 검색 결과</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-black justify-start">"{searchWord}" 검색 결과</h2>
         </header>
       </section>
       <section>
