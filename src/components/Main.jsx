@@ -3,66 +3,66 @@ import { useQuery } from '@tanstack/react-query';
 import { getImageinfo } from '../api/database';
 import CategoryCard from './CategoryCard';
 
-// 임시 데이터
-const categories = [
-  {
-    categoryId: 1,
-    href: '#',
-    categoryName: 'category1',
-    numOfPictures: '103',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-01.jpg',
-    imageAlt: 'ex1',
-  },
-  {
-    categoryId: 2,
-    href: '#',
-    categoryName: 'category2',
-    numOfPictures: '91',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-02.jpg',
-    imageAlt: 'ex2',
-  },
-  {
-    categoryId: 3,
-    href: '#',
-    categoryName: 'category3',
-    numOfPictures: '84',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-03.jpg',
-    imageAlt: 'ex3',
-  },
-  {
-    categoryId: 4,
-    href: '#',
-    categoryName: 'category4',
-    numOfPictures: '22',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-04.jpg',
-    imageAlt: 'ex4',
-  },
-  {
-    categoryId: 5,
-    href: '#',
-    categoryName: 'category5',
-    numOfPictures: '23',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-05.jpg',
-    imageAlt: 'ex5',
-  },
-  {
-    categoryId: 6,
-    href: '#',
-    categoryName: 'category6',
-    numOfPictures: '24',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-06.jpg',
-    imageAlt: 'ex6',
-  },
-];
+// // 임시 데이터
+// const categories = [
+//   {
+//     categoryId: 1,
+//     href: '#',
+//     categoryName: 'category1',
+//     numOfPictures: '103',
+//     imageSrc:
+//       'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-01.jpg',
+//     imageAlt: 'ex1',
+//   },
+//   {
+//     categoryId: 2,
+//     href: '#',
+//     categoryName: 'category2',
+//     numOfPictures: '91',
+//     imageSrc:
+//       'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-02.jpg',
+//     imageAlt: 'ex2',
+//   },
+//   {
+//     categoryId: 3,
+//     href: '#',
+//     categoryName: 'category3',
+//     numOfPictures: '84',
+//     imageSrc:
+//       'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-03.jpg',
+//     imageAlt: 'ex3',
+//   },
+//   {
+//     categoryId: 4,
+//     href: '#',
+//     categoryName: 'category4',
+//     numOfPictures: '22',
+//     imageSrc:
+//       'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-04.jpg',
+//     imageAlt: 'ex4',
+//   },
+//   {
+//     categoryId: 5,
+//     href: '#',
+//     categoryName: 'category5',
+//     numOfPictures: '23',
+//     imageSrc:
+//       'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-05.jpg',
+//     imageAlt: 'ex5',
+//   },
+//   {
+//     categoryId: 6,
+//     href: '#',
+//     categoryName: 'category6',
+//     numOfPictures: '24',
+//     imageSrc:
+//       'https://tailwindui.com/img/ecommerce-images/category-page-01-image-card-06.jpg',
+//     imageAlt: 'ex6',
+//   },
+// ];
 
 export default function Main() {
-  const [categoryCount, setCategoryCount] = useState(categories.length);
+  // const [categoryCount, setCategoryCount] = useState(categories.length);
   const {
     isLoading,
     error,

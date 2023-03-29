@@ -8,7 +8,7 @@ import {
   getAdditionalUserInfo,
 } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
-import { signUp } from './signup';
+import { signUp } from './database';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
