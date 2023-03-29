@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { uploadImage } from '../api/uploader';
+import { uploadImage } from '../api/database';
 
 export default function Upload({ setShowModal, user: { uid } }) {
   const [files, setFiles] = useState([]);
@@ -10,7 +10,10 @@ export default function Upload({ setShowModal, user: { uid } }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    uploadImage(uid, files);
+    uploadImage(uid, files) // 이미지 업로드 함수 호출
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (
