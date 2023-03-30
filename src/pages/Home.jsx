@@ -16,7 +16,7 @@ export default function Home() {
       {user && (
         <>
           <Banner />
-          <Main />
+          <Main user={user} />
           <BsPlusCircleFill
             className="text-7xl fixed bottom-10 right-10 hover:cursor-pointer"
             onClick={() => setShowModal(true)}

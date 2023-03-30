@@ -61,18 +61,18 @@ import CategoryCard from './CategoryCard';
 //   },
 // ];
 
-export default function Main() {
+export default function Main({ user: { uid } }) {
   // const [categoryCount, setCategoryCount] = useState(categories.length);
-  const {
-    isLoading,
-    error,
-    data: photos,
-  } = useQuery(['categories'], getImageinfo); // 임시. 나중에 categories로 바꿀 것
+  // const {
+  //   isLoading,
+  //   error,
+  //   data: photos,
+  // } = useQuery(['categories'], getImageinfo()); // 임시. 나중에 categories로 바꿀 것
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {/* {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>} */}
       <section className="flex flex-col gap-16 py-14 px-4">
         <secition className="mb-6">
           <header className="flex justify-between pb-5">
@@ -107,10 +107,11 @@ export default function Main() {
                   numOfPictures={category.numOfPictures}
                 />
               ))} */}
-            {photos &&
+            {/* {photos &&
               photos.map((photo) => (
                 <CategoryCard key={photo.id} photo={photo} /> // 임시
-              ))}
+              ))} */}
+            <button onClick={() => getImageinfo(uid)}>보기</button>
           </ul>
         </secition>
       </section>
