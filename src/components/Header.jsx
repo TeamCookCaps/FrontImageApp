@@ -17,7 +17,7 @@ export default function Header() {
   };
 
   const handleOnKeyDown = (e) => {
-    if(e.code === 'Enter'){
+    if(e.code === 'Enter' && e.nativeEvent.isComposing === false){
       navigate('/search',{state:{searchWord : `${text}`}});
       setText('')
     }
