@@ -2,12 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsFillCircleFill, BsTrashFill } from 'react-icons/bs';
 import { AiFillThunderbolt, AiFillGift } from 'react-icons/ai';
-import { GrLinkTop } from 'react-icons/gr';
 
 export default function Navbar() {
-  const moveToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
   return (
     <section className="flex flex-col">
       <div className="relative">
@@ -42,12 +38,6 @@ export default function Navbar() {
           <p className="text-4xl font-light">Trash</p>
         </Link>
       </nav>
-      <button
-        className="p-2 bg-white border border-gray-100 fixed bottom-40 right-14 rounded-md hover:bg-gray-50 hover:animate-bounce"
-        onClick={moveToTop}
-      >
-        <GrLinkTop className="text-2xl" />
-      </button>
     </section>
   );
 }
