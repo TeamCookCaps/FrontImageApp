@@ -40,6 +40,6 @@ export async function signUp(uid, nickname) {
 export async function getImageinfo(uid) {
   return axios
     .post('http://localhost:4000/api/imageInfo', { uid })
-    .then((res) => console.log(res.data))
+    .then((res) => res.data.data)
     .catch((error) => console.log(error));
 }
