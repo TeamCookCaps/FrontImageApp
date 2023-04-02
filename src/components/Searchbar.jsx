@@ -17,7 +17,7 @@ export default function Searchbar(){
                 alert('검색어는 반드시 입력해야 합니다!');
             }else{
                 navigate('/search',{state:{ searchWord : `${text}`, color: `${hex}`}});
-                displayClick();
+                displayClose();
                 setText('');
             }
           
@@ -27,6 +27,10 @@ export default function Searchbar(){
     const displayClick = () => {
         setDisplay(!display)
     };
+
+    const displayClose = () => {
+        setDisplay(false)
+    }
     
     return(
         <ul className='w-4/5'>
