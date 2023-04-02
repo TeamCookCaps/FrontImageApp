@@ -1469,6 +1469,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:~7.19.0":
+  version: 7.19.4
+  resolution: "@babel/runtime@npm:7.19.4"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 66b7e3c13e9ee1d2c9397ea89144f29a875edee266a0eb2d9971be51b32fdbafc85808c7a45e011e6681899bb804b4e2ee2aed6dc07108dbbd6b11b6cc2afba6
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.18.10, @babel/template@npm:^7.20.7, @babel/template@npm:^7.3.3":
   version: 7.20.7
   resolution: "@babel/template@npm:7.20.7"
@@ -3776,6 +3785,68 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@uiw/color-convert@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@uiw/color-convert@npm:1.1.2"
+  checksum: 91b8fd9d611e2bae58811e26a142d27b9da6a4472a2be7d3b9187b19e3a8e897eb97f0e4f5a43b16ce2c8789cf5db4e943054ef452277e1e4a6967d2ff5effd5
+  languageName: node
+  linkType: hard
+
+"@uiw/react-color-compact@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@uiw/react-color-compact@npm:1.1.2"
+  dependencies:
+    "@babel/runtime": ~7.19.0
+    "@uiw/color-convert": 1.1.2
+    "@uiw/react-color-editable-input": 1.1.2
+    "@uiw/react-color-editable-input-rgba": 1.1.2
+    "@uiw/react-color-swatch": 1.1.2
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 1d05af971127719da0fd5ab5cf21860a42593d546da492160bfaa9dd75b54d0e097edf6ca2e9b6ba23d315731482c979fabe5596ba85881da63ebd65f566487f
+  languageName: node
+  linkType: hard
+
+"@uiw/react-color-editable-input-rgba@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@uiw/react-color-editable-input-rgba@npm:1.1.2"
+  dependencies:
+    "@babel/runtime": ~7.19.0
+    "@uiw/color-convert": 1.1.2
+    "@uiw/react-color-editable-input": 1.1.2
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: c1ffb392e129f75874ffa6132fb85af78e7a6ab2c5f0d6054f66620bb74969057c6fc281db72099b53ad4582302b906198d1a5d9447ec9fc545fec92f8c581aa
+  languageName: node
+  linkType: hard
+
+"@uiw/react-color-editable-input@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@uiw/react-color-editable-input@npm:1.1.2"
+  dependencies:
+    "@babel/runtime": ~7.19.0
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 2342e8360c6ce41beddf4355ea6bb41986f6a510a3e5b2f4eecdd8513e88a4f3237b2cafcae67c7c405daa871c23c510c161f2d64de14cb2893b52a2ec62762d
+  languageName: node
+  linkType: hard
+
+"@uiw/react-color-swatch@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@uiw/react-color-swatch@npm:1.1.2"
+  dependencies:
+    "@babel/runtime": ~7.19.0
+    "@uiw/color-convert": 1.1.2
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: f799b9f92d91b04462be9ea3a94d534aebf4ed475c975834a011b64d1d71d6effaad8cef2477126304e0c0b72d234c112b686861289f0c34a3d638933cff9283
+  languageName: node
+  linkType: hard
+
 "@webassemblyjs/ast@npm:1.11.1":
   version: 1.11.1
   resolution: "@webassemblyjs/ast@npm:1.11.1"
@@ -4889,6 +4960,7 @@ __metadata:
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^13.0.0
     "@testing-library/user-event": ^13.2.1
+    "@uiw/react-color-compact": ^1.1.2
     axios: ^1.3.4
     cors: ^2.8.5
     debug: ^4.3.4
@@ -7113,7 +7185,7 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -11673,7 +11745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.11, regenerator-runtime@npm:^0.13.9":
+"regenerator-runtime@npm:^0.13.11, regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.9":
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
   checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
@@ -11852,7 +11924,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -11865,7 +11937,7 @@ __metadata:
 
 "resolve@patch:resolve@^2.0.0-next.4#~builtin<compat/resolve>":
   version: 2.0.0-next.4
-  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
