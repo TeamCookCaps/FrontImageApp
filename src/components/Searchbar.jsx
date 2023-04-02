@@ -6,15 +6,21 @@ import Compact from '@uiw/react-color-compact';
 export default function Searchbar(){
     const [text, setText] = useState('');
     const [display, setDisplay] = useState(false);
-    const [hex, setHex] = useState('#fffff');
+    const [hex, setHex] = useState('');
 
     const navigate = useNavigate();
 
     const handleChange = (e) => setText(e.target.value);
     const handleOnKeyDown = (e) => {
         if(e.code === 'Enter' && e.nativeEvent.isComposing === false){
-          navigate('/search',{state:{ searchWord : `${text}`}});
-          setText('')
+            if(text == ''){
+                alert('검색어는 반드시 입력해야 합니다!');
+            }else{
+                navigate('/search',{state:{ searchWord : `${text}`, color: `${hex}`}});
+                displayClick();
+                setText('');
+            }
+          
         }
     }
 
@@ -22,9 +28,6 @@ export default function Searchbar(){
         setDisplay(!display)
     };
     
-    const displayClose = () => {
-        setDisplay(false)
-    }
     return(
         <ul className='w-4/5'>
             <li>
