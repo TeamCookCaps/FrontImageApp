@@ -40,18 +40,18 @@ export default function Upload({ setShowModal, user: { uid } }) {
             required
             onChange={handleChange}
           />
+          <div className="flex justify-end mt-4">
+            <button
+              className="bg-red-400 text-white px-4 py-2 rounded-lg mr-4"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+            <button className="bg-yellow-400 text-white px-4 py-2 rounded-lg">
+              Upload
+            </button>
+          </div>
         </form>
-        <div className="flex justify-end mt-4">
-          <button
-            className="bg-red-400 text-white px-4 py-2 rounded-lg mr-4"
-            onClick={() => setShowModal(false)}
-          >
-            Cancel
-          </button>
-          <button className="bg-yellow-400 text-white px-4 py-2 rounded-lg">
-            Upload
-          </button>
-        </div>
       </div>
     </section>
   );
