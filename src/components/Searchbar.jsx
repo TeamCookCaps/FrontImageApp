@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BiSearch, BiPalette } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import Compact from '@uiw/react-color-compact';
@@ -13,10 +13,11 @@ export default function Searchbar(){
     const handleChange = (e) => setText(e.target.value);
     const handleOnKeyDown = (e) => {
         if(e.code === 'Enter' && e.nativeEvent.isComposing === false){
-            if(text == ''){
+            if(text === ''){
                 alert('검색어는 반드시 입력해야 합니다!');
             }else{
                 navigate('/search',{state:{ searchWord : `${text}`, color: `${hex}`}});
+                window.location.reload()
                 displayClose();
                 setText('');
             }

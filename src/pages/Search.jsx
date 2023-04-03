@@ -12,7 +12,7 @@ export default function Search() {
   const [isShow, setIsShow] = useState(false);
 
   const { isLoading,isFetching, error, data : result } = useQuery({
-    queryKey : ['data'],
+    queryKey : 'data',
     queryFn : () => search(searchWord,color)
   },{refetchOnWindowFocus: false}); 
 
