@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function DetailModal({setIsShow, info }) {
-    const result = info[0];
+export default function DetailModal({setIsShow,info}) {
+    const result = info;
     const result_date = new Date(result.image_date).toString();
-
+    
     const getDate = (date_str) => {
         const date = new Date(date_str);
 

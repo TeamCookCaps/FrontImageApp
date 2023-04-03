@@ -10,6 +10,7 @@ export default function Search() {
   const color = location.state.color;
 
   const [isShow, setIsShow] = useState(false);
+  const [info, setInfo] = useState([]);
 
   const { isLoading,isFetching, error, data : result } = useQuery({
     queryKey : 'data',
@@ -37,14 +38,14 @@ export default function Search() {
           {result && result?.map((search) => (
             <div key={search?.id} className="group relative">
               <button className="min-h-200 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-40"
-                      onClick={()=>setIsShow(true)}>
+                      onClick={()=> {setIsShow(true); setInfo(search)}}>
                 <img alt="image"
                   className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   src={search?.image_url}/>
               </button>
             </div>
           ))}
-          {isShow && <DetailModal setIsShow={setIsShow} info={result}/>}
+          {isShow && <DetailModal setIsShow={setIsShow} info={info}/>}
         </div>
       </section>
     </section>
