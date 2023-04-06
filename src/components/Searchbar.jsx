@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BiSearch, BiPalette } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-import Compact from '@uiw/react-color-compact';
+import { Sketch } from '@uiw/react-color';
 
 export default function Searchbar(){
     const [text, setText] = useState('');
@@ -19,7 +19,7 @@ export default function Searchbar(){
                 navigate('/search',{state:{ searchWord : `${text}`, color: `${hex}`}});
                 window.location.reload()
                 displayClose();
-                setText('');
+               // setText('');
             }
           
         }
@@ -35,7 +35,7 @@ export default function Searchbar(){
     
     return(
         <ul className='w-4/5'>
-            <li>
+            <li className='relative'>
             <form
             className="flex items-center gap-3 mr-10"
             onSubmit={(e)=> { e.preventDefault(); }}>
@@ -47,15 +47,20 @@ export default function Searchbar(){
                     placeholder="검색하려는 카테고리나 위치를 입력하세요"
                     onChange={handleChange}
                     onKeyDown={handleOnKeyDown}/>
-                <div className="w-6 h-5 rounded-full" 
-                    style={{backgroundColor : hex}}/>
-                <BiPalette className="text-3xl" onClick={displayClick}/>
                 </form>
             </li>
             <li>
-            {display ? <div className='absolute z-2'>
-                <Compact
-                    className='w-150 h-100'
+                <div onClick={displayClick}>
+                    <div 
+                    style={{backgroundColor : hex}}
+                    className ='inline-flex items-center m-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 text-sm text-gray-600' 
+                        onClick={displayClick}>{hex === '' ? `색상 선택` : hex}</div>
+                </div>
+            </li>
+            <li>
+            {display ? <div className='absolute z-20'>
+                <Sketch
+                    style={{ marginLeft: 20 }}
                     color={hex}
                     onChange={(color)=> { setHex(color.hex); }}/>
             </div> : null}
