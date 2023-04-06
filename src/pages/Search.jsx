@@ -34,7 +34,7 @@ export default function Search() {
       </section>
       <section>
       {result.length === 0 && <div> 검색 결과가 없습니다! </div>}
-        <div className="grid grid-cols-1 gap-y-5 gap-x-5 sm:grid-cols-4 lg:grid-cols-6 xl:gap-cols-8">
+        <div className="grid grid-cols-1 gap-y-5 gap-x-5 sm:grid-cols-2 lg:grid-cols-4 xl:gap-cols-6">
           {result && result?.map((search) => (
             <div key={search?.id} className="group relative">
               <button className="min-h-200 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-40"
