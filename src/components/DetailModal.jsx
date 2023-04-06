@@ -3,7 +3,7 @@ import { downloadFile } from '../api/search';
 
 export default function DetailModal({setIsShow,info}) {
     const result = info;
-    console.log(result);
+    
     const result_date = new Date(result.image_date).toString();
     
     const getDate = (date_str) => {
@@ -35,7 +35,7 @@ export default function DetailModal({setIsShow,info}) {
                         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className='grid grid-cols-3 min-w-full'>
                                 <div className='col-span-2 h-400'>
-                                    <img src={info.image_url}/>
+                                    <img src={result.image_url} alt='url'/>
                                 </div>
                                 <div className='col-span-1 relative pl-4'>
                                     <header className='flex items-center'>
