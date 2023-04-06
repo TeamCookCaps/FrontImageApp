@@ -44,7 +44,7 @@ export default function Searchbar(){
                     className="w-full outline-none text-xl"
                     type="text"
                     value={text}
-                    placeholder="검색하려는 카테고리와 위치를 입력하세요. 카테고리는 영어로만 검색 가능합니다"
+                    placeholder="검색하려는 카테고리나 위치를 입력하세요"
                     onChange={handleChange}
                     onKeyDown={handleOnKeyDown}/>
                 <div className="w-6 h-5 rounded-full" 
