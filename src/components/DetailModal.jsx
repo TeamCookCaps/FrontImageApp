@@ -1,4 +1,5 @@
 import React from 'react';
+import { downloadFile } from '../api/search';
 
 export default function DetailModal({setIsShow,info}) {
     const result = info;
@@ -29,11 +30,11 @@ export default function DetailModal({setIsShow,info}) {
         <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className="flex h-full w-screen items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="flex max-h-full w-screen items-end justify-center p-4 text-center sm:items-center sm:p-0">
                     <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className='grid grid-cols-3 min-w-full'>
-                                <div className='col-span-2'>
+                                <div className='col-span-2 h-400'>
                                     <img src={info.image_url}/>
                                 </div>
                                 <div className='col-span-1 relative pl-4'>
@@ -46,22 +47,23 @@ export default function DetailModal({setIsShow,info}) {
                                         </svg>
                                         </button>
                                     </header>
-                                    <div>
-                                        <ul className='grid grid-cols-1 gap-x-3 gap-y-3 divide-y'>
-                                            <li>Created : {getDate(result_date)}</li>
-                                            <li>width : {result.image_width}</li>
-                                            <li>height : {result.image_height}</li>
-                                            <li>category : {result.category_name}</li>
-                                            {result.rgb_info && 
-                                                <li> color :
-                                                {result.rgb_info.map((rgb)=> (
-                                                    <div className='inline-block m-2'
-                                                        style={{backgroundColor : RGBToHex(rgb)}}>{RGBToHex(rgb)+" "}</div>
-                                                ))}
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
+                                    <ul className='grid grid-cols-1 gap-x-3 gap-y-3'>
+                                        <li>Created : {getDate(result_date)}</li>
+                                        <li>width : {result.image_width}</li>
+                                        <li>height : {result.image_height}</li>
+                                        <li>category : {result.category_name}</li>
+                                        {result.rgb_info && 
+                                            <li> color :
+                                            {result.rgb_info.map((rgb)=> (
+                                                <div className='inline-block m-2'
+                                                    style={{backgroundColor : RGBToHex(rgb)}}>{RGBToHex(rgb)+" "}</div>
+                                            ))}
+                                            </li>
+                                        }
+                                        <li className="absolute bottom-0 left-0 right-0 pl-4 justify-center">
+                                            <button type='button' className='pt-4 pb-1 pr-3' onClick={()=>{downloadFile(info.image_url)}}>다운로드</button>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
