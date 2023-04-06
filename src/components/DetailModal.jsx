@@ -3,7 +3,7 @@ import { downloadFile } from '../api/search';
 
 export default function DetailModal({setIsShow,info}) {
     const result = info;
-    
+    console.log(result);
     const result_date = new Date(result.image_date).toString();
     
     const getDate = (date_str) => {
@@ -48,10 +48,10 @@ export default function DetailModal({setIsShow,info}) {
                                         </button>
                                     </header>
                                     <ul className='grid grid-cols-1 gap-x-3 gap-y-3'>
-                                        <li>Created : {getDate(result_date)}</li>
-                                        <li>width : {result.image_width}</li>
-                                        <li>height : {result.image_height}</li>
-                                        <li>category : {result.category_name}</li>
+                                        <li>넓이 : {result.image_width}</li>
+                                        <li>높이 : {result.image_height}</li>
+                                        <li>카테고리 : {result.parent_name} &gt; {result.category_name}</li>
+                                        <li>생성일 : {getDate(result_date)}</li>
                                         {result.rgb_info && 
                                             <li> color :
                                             {result.rgb_info.map((rgb)=> (
@@ -60,6 +60,8 @@ export default function DetailModal({setIsShow,info}) {
                                             ))}
                                             </li>
                                         }
+                                        {result.image_location &&
+                                            <li>위치 : {result.image_location}</li>}
                                         <li className="absolute bottom-0 left-0 right-0 pl-4 justify-center">
                                             <button type='button' className='pt-4 pb-1 pr-3' onClick={()=>{downloadFile(info.image_url)}}>다운로드</button>
                                         </li>
