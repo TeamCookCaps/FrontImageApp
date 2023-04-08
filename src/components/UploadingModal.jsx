@@ -3,7 +3,7 @@ import React from 'react';
 export default function UploadingModal() {
   return (
     <div className="absolute inset-0 bg-zinc-500 bg-opacity-75 flex items-center justify-center z-50">
-      <div className="flex gap-3 bg-white p-6 rounded-lg shadow-lg">
+      <div className="flex gap-2 bg-white p-6 rounded-lg shadow-lg">
         <svg
           className="animate-spin text-blue-400"
           fill="none"
