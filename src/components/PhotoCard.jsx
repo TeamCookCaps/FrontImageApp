@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function PhotoCard({ photo: { id, image_url } }) {
+export default function PhotoCard({ photo }) {
+  const imageName = getImageName(photo.image_url);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
+  const handleNavigate = () =>
+    navigate(`/allPhoto/${photo.category_name}/${imageName}`);
 
   return (
-    <li className="rounded-sm overflow-hidden cursor-pointer shrink-0 ">
+    <li
+      onClick={handleNavigate}
+      className="rounded-sm overflow-hidden cursor-pointer shrink-0 transition-all hover:brightness-110"
+    >
       <img
-        className={`${
-          imageLoaded ? '' : 'hidden'
-        } w-52 h-72 object-cover transition duration-300 ${
-          hovered && 'brightness-110'
-        }`}
-        src={image_url}
-        alt={id}
+        className={`${imageLoaded ? '' : 'hidden'} w-52 h-72 object-cover`}
+        src={photo.image_url}
+        alt={photo.image_id}
         onLoad={handleImageLoad}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
       />
       {!imageLoaded && (
         <div className="flex justify-center items-center w-full h-72">
@@ -35,4 +36,12 @@ export default function PhotoCard({ photo: { id, image_url } }) {
       )}
     </li>
   );
+}
+
+function getImageName(url) {
+  const imageName = url.substring(
+    url.lastIndexOf('/') + 1,
+    url.lastIndexOf('.')
+  );
+  return imageName;
 }
