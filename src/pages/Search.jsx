@@ -3,14 +3,18 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { search } from '../api/search';
 import DetailModal from '../components/DetailModal';
+import Loading from '../components/Loading';
 
 export default function Search() {
   const location = useLocation();
+
   const searchWord = location.state.searchWord;
   const color = location.state.color;
+  console.log(searchWord+" "+color);
 
   const [isShow, setIsShow] = useState(false);
   const [info, setInfo] = useState([]);
+
 
   const { isLoading,isFetching, error, data : result } = useQuery({
     queryKey : 'data',
@@ -18,7 +22,11 @@ export default function Search() {
   },{refetchOnWindowFocus: false}); 
 
   if(isLoading || isFetching){
-    return (<>isLoading... </>)
+    return (
+      <>
+        <Loading/>
+      </>
+    )
   }
 
   if(error) {
@@ -29,8 +37,13 @@ export default function Search() {
     <section className="flex flex-col gap-5 py-5 px-5">
       <section className="mb-4">
         <header>
-          <h2 className="text-2xl font-bold tracking-tight text-black justify-start">"{searchWord}" 검색 결과</h2>
-        </header>
+            <h2 className="text-2xl font-bold tracking-tight text-black justify-start">
+              {searchWord && color && `"${searchWord}" 키워드 ${color} 색상 검색 결과`}
+              {searchWord && !color && `"${searchWord}" 검색 결과` }
+              {color && !searchWord && `${color} 색상 검색 결과` }
+            
+            </h2>
+          </header>
       </section>
       <section>
       {result.length === 0 && <div> 검색 결과가 없습니다! </div>}

@@ -9,11 +9,11 @@ export default function DetailModal({setIsShow,info}) {
     const getDate = (date_str) => {
         const date = new Date(date_str);
 
-        const month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
-        const day = (date.getDate()) < 10 ? '0' + (date.getDate()).toString() : (date.getDate()).toString();
-        const hour = (date.getHours()) < 10 ? '0' + (date.getHours()).toString() : (date.getHours()).toString();
-        const minites = (date.getMinutes()) < 10 ? '0' + (date.getMinutes()).toString() : (date.getMinutes()).toString();
-        const seconds = (date.getSeconds()) < 10 ? '0' + (date.getSeconds()).toString() : (date.getSeconds()).toString();
+        const month = String(date.getMonth() + 1).padStart(2,"0");
+        const day = String(date.getDate()).padStart(2,"0");
+        const hour = String(date.getHours()).padStart(2,"0");
+        const minites = String(date.getMinutes()).padStart(2,"0");
+        const seconds = String(date.getSeconds()).padStart(2,"0");
 
         return date.getFullYear().toString()+'-'+month+'-'+day+' '+hour+':'+minites+':'+seconds;
     }
@@ -30,14 +30,14 @@ export default function DetailModal({setIsShow,info}) {
         <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className="flex max-h-full w-screen items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="flex max-h-full w-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                     <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div className='grid grid-cols-3 min-w-full'>
-                                <div className='col-span-2 h-400'>
+                            <div className='grid grid-cols-5 min-w-full'>
+                                <div className='col-span-3 h-400'>
                                     <img src={result.image_url} alt='url'/>
                                 </div>
-                                <div className='col-span-1 relative pl-4'>
+                                <div className='col-span-2 relative pl-4'>
                                     <header className='flex items-center'>
                                         <div className='w-5/6 outline-none focus:outline-none p-5'></div>
                                         <button type="button" className="w-1/6 rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
@@ -62,8 +62,8 @@ export default function DetailModal({setIsShow,info}) {
                                         }
                                         {result.image_location &&
                                             <li>위치 : {result.image_location}</li>}
-                                        <li className="absolute bottom-0 left-0 right-0 pl-4 justify-center">
-                                            <button type='button' className='pt-4 pb-1 pr-3' onClick={()=>{downloadFile(info.image_url)}}>다운로드</button>
+                                        <li className="bottom-0 left-0 right-0 pl-4 justify-center">
+                                            <button type='button' className='pt-4 pb-1 pr-3 bg-yellow-300 text-white px-4 py-2 rounded-lg' onClick={()=>{downloadFile(info.image_url)}}>다운로드</button>
                                         </li>
                                     </ul>
                                 </div>

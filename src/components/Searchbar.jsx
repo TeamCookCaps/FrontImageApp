@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
-import { BiSearch, BiPalette } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BiSearch, BiX } from 'react-icons/bi';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Sketch } from '@uiw/react-color';
+import { useDebounce } from '../hook/useDebounce';
 
 export default function Searchbar(){
     const [text, setText] = useState('');
     const [display, setDisplay] = useState(false);
     const [hex, setHex] = useState('');
+    
+    const debounceHex = useDebounce(hex);
+
+    useEffect(()=>{
+        if(hex !== ''){
+            initSearch();
+        }
+    },[debounceHex]);
 
     const navigate = useNavigate();
-
     const handleChange = (e) => setText(e.target.value);
     const handleOnKeyDown = (e) => {
+
         if(e.code === 'Enter' && e.nativeEvent.isComposing === false){
-            if(text === ''){
-                alert('검색어는 반드시 입력해야 합니다!');
-            }else{
-                navigate('/search',{state:{ searchWord : `${text}`, color: `${hex}`}});
-                window.location.reload()
-                displayClose();
-               // setText('');
-            }
-          
+            initSearch();
         }
+    }
+
+    const initSearch = () => {
+        navigate('/search',{state:{ searchWord : `${text}`, color: `${hex}`}});
+        window.location.reload();
+        displayClose();
+        setText('');
     }
 
     const displayClick = () => {
@@ -46,7 +54,7 @@ export default function Searchbar(){
                     value={text}
                     placeholder="검색하려는 카테고리나 위치를 입력하세요"
                     onChange={handleChange}
-                    onKeyDown={handleOnKeyDown}/>
+                    onKeyDown = {handleOnKeyDown}/>
                 </form>
             </li>
             <li>
@@ -54,7 +62,9 @@ export default function Searchbar(){
                     <div 
                     style={{backgroundColor : hex}}
                     className ='inline-flex items-center m-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 text-sm text-gray-600' 
-                        onClick={displayClick}>{hex === '' ? `색상 선택` : hex}</div>
+                        onClick={displayClick}>{hex === '' ? `색상 선택` : hex}
+                    <BiX onClick={()=> {  setHex(''); }}/>
+                    </div>
                 </div>
             </li>
             <li>
