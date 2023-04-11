@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { search } from '../api/search';
 import DetailModal from '../components/DetailModal';
 import Loading from '../components/Loading';
+import Masonry from "react-masonry-css";
+import MasonryItem from '../components/MasonryItem';
 
 export default function Search() {
   const location = useLocation();
@@ -47,19 +49,22 @@ export default function Search() {
       </section>
       <section>
       {result.length === 0 && <div> 검색 결과가 없습니다! </div>}
-        <div className="grid grid-cols-1 gap-y-5 gap-x-5 sm:grid-cols-2 lg:grid-cols-4 xl:gap-cols-6">
+          <Masonry 
+            className="flex animate-slide-fwd"
+            breakpointCols={{
+              default: 4,
+              1100: 3,
+              700: 2,
+              500: 1
+            }}>
           {result && result?.map((search) => (
-            <div key={search?.id} className="group relative">
-              <button className="min-h-200 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-40"
-                      onClick={()=> {setIsShow(true); setInfo(search)}}>
-                <img alt="image"
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  src={search?.image_url}/>
-              </button>
-            </div>
-          ))}
+            <MasonryItem 
+              search = {search}
+              isShow = {setIsShow}
+              info = {setInfo}/>
+            ))}
           {isShow && <DetailModal setIsShow={setIsShow} info={info}/>}
-        </div>
+        </Masonry>
       </section>
     </section>
   )
