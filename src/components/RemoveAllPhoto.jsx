@@ -1,20 +1,34 @@
 import React, {Fragment, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { removeAllImage } from '../api/trash';
 
-export default function RemoveAllPhoto() {
+export default function RemoveAllPhoto({trashList}) {
     const [loading, setLoading] = useState(false);
   
     const [open, setOpen] = useState(false)
-  
+
     const handleSubmit = () => {
       setLoading(true);
-      setTimeout(() => {
-        setOpen(false)
-        window.location.reload()
-        setLoading(false)
-      }, 1000)
+      removeAllImage(trashList)
+        .then((res) => {
+          console.log(res);
+        })
+        .finally(() => {
+          setOpen(false);
+          setLoading(false);
+          window.location.reload();
+        });
+      // setTimeout(() => {
+      //   setOpen(false)
+      //   window.location.reload()
+      //   setLoading(false)
+      // }, 1000)
+      // setOpen(false);
+      // setLoading(false);
     }
+
+    // const { refetch } = useQuery(['result'], () => removeAllImage(trashList));
   
     return (
       <>

@@ -9,7 +9,10 @@ import Loading from '../components/Loading';
 export default function Trash() {
   const { user } = useAuthContext();
 
-  const { isLoading, isFetching, error, data : result } = useQuery(['trashImage'], () => getTrashImage(user.uid)); 
+  const { isLoading, isFetching, error, data : result } = useQuery(['trashImage'], () => getTrashImage(user.uid));
+  
+  const trashList = result?.map((image) => image?.id)
+  console.log("trashList : " + trashList)
 
   if(isLoading || isFetching){
     return (
@@ -30,7 +33,7 @@ export default function Trash() {
         <h2 className="text-2xl font-bold tracking-tight text-black justify-start">휴지통</h2>
         <div className="space-x-2 flex justify-end">
           <button class="bg-transparent hover:bg-blue-400 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded">모두 복구하기</button>
-          <RemoveAllPhoto />
+          <RemoveAllPhoto trashList={trashList}/>
         </div>
         <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-4 lg:grid-cols-8 xl:gap-x-2">
           {result && result?.map((trashImg) => (
