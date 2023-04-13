@@ -7,9 +7,16 @@ export async function getTrashImage(uid) {
                 .catch((error) => console.log("error는 : " + error))
 }
 
-export async function removeAllImage(trashList) {
+export async function removeAllImage(trashId) {
     console.log('removeAll 호출')
-    return axios.post('http://localhost:4000/api/removeAll',{ trashList })
+    return axios.post('http://localhost:4000/api/removeAll',{ trashId })
+                .then((res) => res.data.data)
+                .catch((error) => console.log("error는 : " + error))
+}
+
+export async function removeCloudinary(img_url) {
+    console.log('removeCloudinary 호출')
+    return axios.post('http://localhost:8082/api/image_Remove', { img_url })
                 .then((res) => res.data.data)
                 .catch((error) => console.log("error는 : " + error))
 }

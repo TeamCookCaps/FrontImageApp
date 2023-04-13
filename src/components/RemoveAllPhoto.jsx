@@ -2,23 +2,27 @@ import React, {Fragment, useState} from 'react';
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { removeAllImage } from '../api/trash';
+import { removeCloudinary } from '../api/trash';
 
-export default function RemoveAllPhoto({trashList}) {
+export default function RemoveAllPhoto({trashId, trashNameList}) {
     const [loading, setLoading] = useState(false);
   
     const [open, setOpen] = useState(false)
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
       setLoading(true);
-      removeAllImage(trashList)
-        .then((res) => {
-          console.log(res);
-        })
-        .finally(() => {
-          setOpen(false);
-          setLoading(false);
-          window.location.reload();
-        });
+      try {
+        const res1 = await removeAllImage(trashId)
+        console.log(res1);
+        const res2 = await removeCloudinary(trashNameList)
+        console.log(res2);
+      } catch(error) {
+        console.error(error);
+      } finally {
+        setOpen(false);
+        setLoading(false);
+        window.location.reload()
+      }
       // setTimeout(() => {
       //   setOpen(false)
       //   window.location.reload()
