@@ -1,38 +1,39 @@
 import React , {useState} from 'react';
 import { HiOutlineHeart, HiHeart, HiSearch } from 'react-icons/hi';
 import { useAuthContext } from '../context/AuthContext';
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { transFavorite } from '../api/favorite';
+import { useLike } from '../hook/useLike';
 
 export default function MasonryItem({ search, isShow ,info }) {
   const { user } = useAuthContext();
   const id  = search.id;
   const favorite_yn = search.favorite_yn;
 
-
   const [like, setLike] = useState(favorite_yn);
   const [hovered, setHovered] = useState(false);
+  const likeMutate = useLike();
 
-  const queryClient = useQueryClient();
-  const mutation = useMutation(transFavorite, { 
-    onSettled : (data) => {
-      console.log(data.data === "like");
-      if(data.data === "like") setLike((data) => data = 'y');
-      else setLike((data) => data = 'n');
-      queryClient.invalidateQueries('data');
-    },
-    onError : (e)=>{
-      alert(e);
-    },
-  })
+  // const queryClient = useQueryClient();
+  // const mutation = useMutation(transFavorite, { 
+  //   onSettled : (data) => {
+  //     console.log(data.data === "like");
+  //     if(data.data === "like") setLike((data) => data = 'y');
+  //     else setLike((data) => data = 'n');
+  //     queryClient.invalidateQueries('data');
+  //   },
+  //   onError : (e)=>{
+  //     alert(e);
+  //   },
+  // })
 
   const showDetail = () => {
     isShow(true) 
     info(search)
   }
 
+
   const likeImage = () => {
-    mutation.mutate({ uid : user?.uid ,id : id});
+    //mutation.mutate({ uid : user?.uid ,id : id});
+    likeMutate.mutate({ uid : user?.uid ,id : id});
   }
 
   return (
