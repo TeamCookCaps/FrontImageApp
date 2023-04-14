@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { downloadFile } from '../api/search';
+import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 
 export default function DetailModal({setIsShow,info}) {
     const result = info;
     console.log(result);
     const result_date = new Date(result.image_date).toString();
+    const [like,setLike] = useState(result.favorite_yn);
     
     const getDate = (date_str) => {
         const date = new Date(date_str);
@@ -40,7 +42,9 @@ export default function DetailModal({setIsShow,info}) {
                                 <div className='col-span-2 relative pl-4'>
                                     <header className='flex items-center'>
                                         <div className='w-5/6 outline-none focus:outline-none p-5'></div>
-                                        <button type="button" className="w-1/6 rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                                        <div class="w-1/6 text-2xl">{like === 'n' ? <HiOutlineHeart className="text-gray-500"/> : <HiHeart className="text-red-400"/>}
+                                        </div>
+                                        <button type="button" className="w-1/6 rounded-md text-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
                                                 onClick={()=> setIsShow(false)} >
                                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
