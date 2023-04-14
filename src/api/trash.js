@@ -20,3 +20,11 @@ export async function removeCloudinary(img_url) {
                 .then((res) => res.data.data)
                 .catch((error) => console.log("error는 : " + error))
 }
+
+export async function restoreAllImage(trashId) {
+    console.log('restoreAll 호출')
+    // 고쳐야함
+    return axios.post('http://localhost:4000/api/restoreAll',{ trashId })
+                .then((res) => res.data.data)
+                .catch((error) => console.log("error는 : " + error))
+}
