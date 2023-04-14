@@ -6,13 +6,14 @@ import DetailModal from '../components/DetailModal';
 import Loading from '../components/Loading';
 import Masonry from "react-masonry-css";
 import MasonryItem from '../components/MasonryItem';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function Search() {
+  const { user }= useAuthContext();
   const location = useLocation();
 
   const searchWord = location.state.searchWord;
   const color = location.state.color;
-  console.log(searchWord+" "+color);
 
   const [isShow, setIsShow] = useState(false);
   const [info, setInfo] = useState([]);
@@ -20,7 +21,7 @@ export default function Search() {
 
   const { isLoading,isFetching, error, data : result } = useQuery({
     queryKey : 'data',
-    queryFn : () => search(searchWord,color)
+    queryFn : () => search(user.uid, searchWord,color)
   },{refetchOnWindowFocus: false}); 
 
   if(isLoading || isFetching){
@@ -59,7 +60,6 @@ export default function Search() {
             }}>
           {result && result?.map((search) => (
             <MasonryItem
-              id = {search.id}
               search = {search}
               isShow = {setIsShow}
               info = {setInfo}/>

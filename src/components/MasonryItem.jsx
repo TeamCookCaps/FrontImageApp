@@ -4,21 +4,26 @@ import { useAuthContext } from '../context/AuthContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { transFavorite } from '../api/favorite';
 
-export default function MasonryItem({ id, search , isShow ,info }) {
-  const { uid } = useAuthContext();
+export default function MasonryItem({ search, isShow ,info }) {
+  const { user } = useAuthContext();
+  const id  = search.id;
+  const favorite_yn = search.favorite_yn;
 
-  const [like, setLike] = useState(false);
+
+  const [like, setLike] = useState(favorite_yn);
   const [hovered, setHovered] = useState(false);
 
   const queryClient = useQueryClient();
   const mutation = useMutation(transFavorite, { 
-    onSuccess : (data) => {
-      if(data === 'like') setLike(true);
-      else setLike(false);
+    onSettled : (data) => {
+      console.log(data.data === "like");
+      if(data.data === "like") setLike((data:String) => data = 'y');
+      else setLike((data:String) => data = 'n');
+      queryClient.invalidateQueries('data');
     },
     onError : (e)=>{
       alert(e);
-    }
+    },
   })
 
   const showDetail = () => {
@@ -27,8 +32,7 @@ export default function MasonryItem({ id, search , isShow ,info }) {
   }
 
   const likeImage = () => {
-    console.log(id)
-    mutation.mutate({ uid : uid ,id : id});
+    mutation.mutate({ uid : user?.uid ,id : id});
   }
 
   return (
@@ -38,12 +42,11 @@ export default function MasonryItem({ id, search , isShow ,info }) {
       onMouseLeave={() => setHovered(false)}>
           <ul className='absolute top-5 right-4 text-3xl'>
             <li>
-              {!like &&  
+              {like === 'n' ? 
                 <HiOutlineHeart className="text-gray-500"
-                      onClick={likeImage}/>}
-              {like && 
-                  <HiHeart className="text-red-400"
-                        onClick={likeImage} />}
+                      onClick={likeImage}/> : 
+                <HiHeart className="text-red-400"
+                      onClick={likeImage} />}
             </li>
             <li>
               {hovered && <HiSearch className='text-gray-500' onClick={showDetail}/>}
