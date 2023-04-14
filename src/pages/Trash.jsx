@@ -1,5 +1,6 @@
 import React from 'react';
 import RemoveAllPhoto from '../components/RemoveAllPhoto';
+import RestoreAllPhoto from '../components/RestoreAllPhoto';
 import { useQuery } from '@tanstack/react-query';
 import { getTrashImage } from '../api/trash';
 import { useAuthContext } from '../context/AuthContext';
@@ -38,7 +39,7 @@ export default function Trash() {
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-0 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-black justify-start">휴지통</h2>
         <div className="space-x-2 flex justify-end">
-          <button class="bg-transparent hover:bg-blue-400 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded">모두 복구하기</button>
+          <RestoreAllPhoto trashId={trashId} />
           <RemoveAllPhoto trashId={trashId} trashNameList={trashNameList} />
         </div>
         <div className="mt-6 grid grid-cols-2 gap-y-10 gap-x-6 sm:grid-cols-4 lg:grid-cols-8 xl:gap-x-2">
