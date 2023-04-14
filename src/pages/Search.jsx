@@ -58,7 +58,8 @@ export default function Search() {
               500: 1
             }}>
           {result && result?.map((search) => (
-            <MasonryItem 
+            <MasonryItem
+              id = {search.id}
               search = {search}
               isShow = {setIsShow}
               info = {setInfo}/>

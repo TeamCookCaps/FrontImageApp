@@ -1,9 +1,25 @@
 import React , {useState} from 'react';
 import { HiOutlineHeart, HiHeart, HiSearch } from 'react-icons/hi';
+import { useAuthContext } from '../context/AuthContext';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { transFavorite } from '../api/favorite';
 
-export default function MasonryItem({ search , isShow ,info }) {
+export default function MasonryItem({ id, search , isShow ,info }) {
+  const { uid } = useAuthContext();
+
   const [like, setLike] = useState(false);
   const [hovered, setHovered] = useState(false);
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation(transFavorite, { 
+    onSuccess : (data) => {
+      if(data === 'like') setLike(true);
+      else setLike(false);
+    },
+    onError : (e)=>{
+      alert(e);
+    }
+  })
 
   const showDetail = () => {
     isShow(true) 
@@ -11,11 +27,8 @@ export default function MasonryItem({ search , isShow ,info }) {
   }
 
   const likeImage = () => {
-    setLike(true);
-  }
-
-  const unlikeImage = () => {
-    setLike(false);
+    console.log(id)
+    mutation.mutate({ uid : uid ,id : id});
   }
 
   return (
@@ -30,7 +43,7 @@ export default function MasonryItem({ search , isShow ,info }) {
                       onClick={likeImage}/>}
               {like && 
                   <HiHeart className="text-red-400"
-                        onClick={unlikeImage} />}
+                        onClick={likeImage} />}
             </li>
             <li>
               {hovered && <HiSearch className='text-gray-500' onClick={showDetail}/>}
