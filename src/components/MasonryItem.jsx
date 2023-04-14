@@ -17,8 +17,8 @@ export default function MasonryItem({ search, isShow ,info }) {
   const mutation = useMutation(transFavorite, { 
     onSettled : (data) => {
       console.log(data.data === "like");
-      if(data.data === "like") setLike((data:String) => data = 'y');
-      else setLike((data:String) => data = 'n');
+      if(data.data === "like") setLike((data) => data = 'y');
+      else setLike((data) => data = 'n');
       queryClient.invalidateQueries('data');
     },
     onError : (e)=>{
