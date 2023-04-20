@@ -2,23 +2,32 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function PhotoCard({ photo }) {
-  const imageName = getImageName(photo.image_url);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const imageName = getImageName(photo.image_url);
   const navigate = useNavigate();
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
   const handleNavigate = () =>
-    navigate(`/allPhoto/${photo.category_name}/${imageName}`);
+    navigate(`/allPhoto/${photo.category_name}/${imageName}`, {
+      state: { photo },
+    });
 
   return (
-    <li
+    <div
+      className="relative w-full p-3"
       onClick={handleNavigate}
-      className="rounded-sm overflow-hidden cursor-pointer shrink-0 transition-all hover:brightness-110"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <img
-        className={`${imageLoaded ? '' : 'hidden'} w-52 h-72 object-cover`}
+        className={`${
+          imageLoaded ? '' : 'hidden'
+        } h-full w-full cursor-pointer object-cover object-center transition-all ${
+          hovered ? 'scale-95' : 'scale-100'
+        } hover:ease-out`}
         src={photo.image_url}
         alt={photo.image_id}
         onLoad={handleImageLoad}
@@ -34,7 +43,7 @@ export default function PhotoCard({ photo }) {
           </svg>
         </div>
       )}
-    </li>
+    </div>
   );
 }
 

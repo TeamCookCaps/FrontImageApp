@@ -15,7 +15,6 @@ import RecommandPhoto from './pages/RecommandPhoto';
 import Search from './pages/Search';
 import Trash from './pages/Trash';
 import ProtectedRoute from './pages/ProtectedRoute';
-import CategoryDetail from './pages/CategoryDetail';
 
 const router = createBrowserRouter([
   {
@@ -85,14 +84,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Trash />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/categories',
-        element: (
-          <ProtectedRoute>
-            <CategoryDetail />
           </ProtectedRoute>
         ),
       },
