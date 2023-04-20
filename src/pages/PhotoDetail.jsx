@@ -1,5 +1,10 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function PhotoDetail() {
-  return <div>PhotoDetail Page</div>;
+  const {
+    state: { photo },
+  } = useLocation();
+
+  return <h1>{photo.id}</h1>;
 }
