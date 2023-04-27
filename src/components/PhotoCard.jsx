@@ -1,28 +1,55 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 
 export default function PhotoCard({ photo }) {
-  const imageName = getImageName(photo.image_url);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [like, setLike] = useState(photo.favorite_yn); // 테이블 바뀌어서 수정
+  const imageName = getImageName(photo.image_url);
   const navigate = useNavigate();
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
   const handleNavigate = () =>
-    navigate(`/allPhoto/${photo.category_name}/${imageName}`);
+    navigate(`/allPhoto/${photo.category_name}/${imageName}`, {
+      state: { photo },
+    });
+  const handleLikeClick = (e) => {
+    e.stopPropagation(); // img 클릭으로 넘어가는 현상 방지
+    setLike((prevLike) => !prevLike);
+  };
 
   return (
-    <li
+    <div
+      className="relative w-full p-3"
       onClick={handleNavigate}
-      className="rounded-sm overflow-hidden cursor-pointer shrink-0 transition-all hover:brightness-110"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <img
-        className={`${imageLoaded ? '' : 'hidden'} w-52 h-72 object-cover`}
+        className={`${
+          imageLoaded ? '' : 'hidden'
+        } h-full w-full cursor-pointer object-cover transition-all ${
+          hovered ? 'scale-95' : 'scale-100'
+        } hover:ease-out`}
         src={photo.image_url}
         alt={photo.image_id}
         onLoad={handleImageLoad}
       />
+      {like ? (
+        <HiHeart
+          className="absolute top-7 right-7 text-4xl text-red-400 hover:cursor-pointer"
+          onClick={handleLikeClick}
+        />
+      ) : (
+        <HiOutlineHeart
+          className="absolute top-7 right-7 text-4xl text-red-400 hover:cursor-pointer"
+          onClick={handleLikeClick}
+        />
+      )}
+
       {!imageLoaded && (
         <div className="flex justify-center items-center w-full h-72">
           <svg
@@ -34,7 +61,7 @@ export default function PhotoCard({ photo }) {
           </svg>
         </div>
       )}
-    </li>
+    </div>
   );
 }
 

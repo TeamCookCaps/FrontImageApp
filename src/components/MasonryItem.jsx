@@ -10,7 +10,7 @@ export default function MasonryItem({ search ,onOpenModal }) {
 
   const [like, setLike] = useState(favorite_yn);
   const [hovered, setHovered] = useState(false);
-  const [load,setLoad] = useState(false);
+  const [load, setLoad] = useState(false);
 
   const likeMutate = useLike('data'); // data가 업데이트 키
 
@@ -30,35 +30,42 @@ export default function MasonryItem({ search ,onOpenModal }) {
   };
 
   return (
-    <div className='relative w-full p-3'>
-      <div className='w-full overflow-hidden rounded-md'
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}>
-          <ul className='absolute top-5 right-4 text-3xl'>
-            <li>
-              {like === 'n' ? 
-                <HiOutlineHeart className="text-gray-500"
-                      onClick={likeImage}/> : 
-                <HiHeart className="text-red-400"
-                      onClick={likeImage} />}
-            </li>
-            <li>
-              {hovered && <HiSearch className='text-gray-500' onClick={showDetail}/>}
-            </li>
-          </ul>
-          
-          <img 
-              className={`${load ? '' : 'hidden'} h-full w-full object-cover object-center lg:h-full lg:w-full ${hovered ? 'scale-95' : 'scale-100' }hover:cursor-pointer hover:ease-out`}
-              src={search?.image_url}
-              alt={search?.id}
-              onLoad={handleImageLoad}
-              />
-          {!load && (
-            <div className='animate-pulse flex flex-col'>
-              <div className="rounded w-full h-52 bg-gray-200"></div>
-            </div>
-            
-          )}
+    <div className="relative w-full p-3">
+      <div
+        className="w-full overflow-hidden rounded-md"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <ul className="absolute top-5 right-4 text-3xl">
+          <li>
+            {like === 'n' ? (
+              <HiOutlineHeart className="text-gray-500" onClick={likeImage} />
+            ) : (
+              <HiHeart className="text-red-400" onClick={likeImage} />
+            )}
+          </li>
+          <li>
+            {hovered && (
+              <HiSearch className="text-gray-500" onClick={showDetail} />
+            )}
+          </li>
+        </ul>
+
+        <img
+          className={`${
+            load ? '' : 'hidden'
+          } h-full w-full object-cover object-center lg:h-full lg:w-full ${
+            hovered ? 'scale-95' : 'scale-100'
+          }hover:cursor-pointer hover:ease-out`}
+          src={search?.image_url}
+          alt={search?.id}
+          onLoad={handleImageLoad}
+        />
+        {!load && (
+          <div className="animate-pulse flex flex-col">
+            <div className="rounded w-full h-52 bg-gray-200"></div>
+          </div>
+        )}
       </div>
     </div>
   );
