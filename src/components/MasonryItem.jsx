@@ -1,11 +1,11 @@
-import React , {useState} from 'react';
+import React , {useEffect, useState} from 'react';
 import { HiOutlineHeart, HiHeart, HiSearch } from 'react-icons/hi';
 import { useAuthContext } from '../context/AuthContext';
 import { useLike } from '../hook/useLike';
 
-export default function MasonryItem({ search, isShow ,info }) {
+export default function MasonryItem({ search ,onOpenModal }) {
   const { user } = useAuthContext();
-  const id  = search.id;
+  const id =  search.id;
   const favorite_yn = search.favorite_yn;
 
   const [like, setLike] = useState(favorite_yn);
@@ -14,27 +14,14 @@ export default function MasonryItem({ search, isShow ,info }) {
 
   const likeMutate = useLike('data'); // data가 업데이트 키
 
-  // const queryClient = useQueryClient();
-  // const mutation = useMutation(transFavorite, { 
-  //   onSettled : (data) => {
-  //     console.log(data.data === "like");
-  //     if(data.data === "like") setLike((data) => data = 'y');
-  //     else setLike((data) => data = 'n');
-  //     queryClient.invalidateQueries('data');
-  //   },
-  //   onError : (e)=>{
-  //     alert(e);
-  //   },
-  // })
-
   const showDetail = () => {
-    isShow(true) 
-    info(search)
+    // isShow(true) 
+    // info(search)
+    onOpenModal(search.id);
   }
 
 
   const likeImage = () => {
-    //mutation.mutate({ uid : user?.uid ,id : id});
     likeMutate.mutate({ uid : user?.uid ,id : id});
   }
 
