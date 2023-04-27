@@ -26,7 +26,7 @@ export default function PhotoDeatilDescription({
     setLike((prevLike) => !prevLike);
   };
   const handleDelete = () => {
-    // removeOneImage(user.uid, image_id);
+    removeOneImage(user.uid, image_id);
   };
 
   return (

@@ -38,6 +38,7 @@ export default function PhotoDetail() {
   const handleGoBack = () => {
     navigate(-1);
   };
+  // 개발중
   const handleGoNext = () => {
     //   const nextIndex = photoIndex + 1;
     //   // photos 배열 끝에 도달하면 처음 index로 돌아감
