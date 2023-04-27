@@ -37,6 +37,6 @@ export async function removeOneImage(uid, trashId) {
   console.log('removeOneImage 호출');
   return axios
     .post('http://localhost:4000/api/delete', { uid, trashId })
-    .then((res) => res.data.data)
+    .then((res) => console.log(res))
     .catch((error) => console.log(error));
 }
