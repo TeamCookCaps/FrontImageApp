@@ -30,7 +30,6 @@ export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
         </div>
         <span className="pl-1 text-lg text-gray-400 font-normal">
           {numOfPhotos}
-          {console.log(photos) /* 나중에 삭제 */}
         </span>
       </div>
     </li>
