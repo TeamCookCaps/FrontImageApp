@@ -35,8 +35,9 @@ export async function login() {
 function signup(result) {
   const uuid = result.user.uid;
   const nick = result.user.displayName;
-  console.log(uuid + ' ' + nick);
-  signUp(uuid, nick);
+  const profile_img = result.user.photoURL;
+ 
+  signUp(uuid, nick ,profile_img);
 }
 
 export function logout() {
