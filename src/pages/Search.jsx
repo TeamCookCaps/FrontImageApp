@@ -7,6 +7,7 @@ import Loading from '../components/Loading';
 import Masonry from "react-masonry-css";
 import MasonryItem from '../components/MasonryItem';
 import { useAuthContext } from '../context/AuthContext';
+import UserItem from '../components/UserItem';
 
 export default function Search() {
   const { user }= useAuthContext();
@@ -54,19 +55,31 @@ export default function Search() {
   }
 
   return (
-    <section className="flex flex-col gap-5 py-5 px-5">
-      <section className="mb-4">
-        <header>
+    <section className="flex flex-col gap-5 py-3 px-5">
+      <header>
             <h2 className="text-2xl font-bold tracking-tight text-black justify-start">
               {searchWord && color && `"${searchWord}" 키워드 ${color} 색상 검색 결과`}
               {searchWord && !color && `"${searchWord}" 검색 결과` }
               {color && !searchWord && `${color} 색상 검색 결과` }
-            
             </h2>
-          </header>
-      </section>
+        </header>
+        <section>
+          <h3 className='text-xl font-bold mb-4'>사용자</h3>
+          {result.user.length === 0 && <div> 사용자 검색 결과가 없습니다! </div>}
+          {result?.user.length !== 0 &&
+            <>
+              {result?.user.map((item)=> (
+                <UserItem user={item}/>
+              ))}
+            </>
+          }
+        </section>
+        <hr/>
       <section>
-      {result.length === 0 && <div> 검색 결과가 없습니다! </div>}
+      <h3 className='text-xl font-bold mb-4'>이미지</h3>
+        {result.searchList.length === 0 && <div> 이미지 검색 결과가 없습니다! </div>}
+        {result.searchList.length !== 0 && 
+          <>
           <Masonry 
             className="flex animate-slide-fwd"
             breakpointCols={{
@@ -75,7 +88,7 @@ export default function Search() {
               700: 2,
               500: 1
             }}>
-          {result && result?.map((search) => (
+          {result && result?.searchList.map((search) => (
             <MasonryItem
               search = {search}
               onOpenModal={handleOpenModal}/>
@@ -84,6 +97,8 @@ export default function Search() {
             <DetailModal onClose={handleCloseModal} info={modalItem} user ={user} onUpdateItem={handleUpdateItem}/>
           )}
         </Masonry>
+        </>
+        }
       </section>
     </section>
   )
