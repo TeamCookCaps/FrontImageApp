@@ -2,20 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { BiSearch, BiX } from 'react-icons/bi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Sketch } from '@uiw/react-color';
-import { useDebounce } from '../hook/useDebounce';
 
 export default function Searchbar(){
     const [text, setText] = useState('');
     const [display, setDisplay] = useState(false);
     const [hex, setHex] = useState('');
-    
-    const debounceHex = useDebounce(hex);
-
-    useEffect(()=>{
-        if(hex !== ''){
-            initSearch();
-        }
-    },[debounceHex]);
 
     const navigate = useNavigate();
     const handleChange = (e) => setText(e.target.value);

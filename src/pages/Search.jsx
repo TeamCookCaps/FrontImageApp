@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { search } from '../api/search';
@@ -15,14 +15,31 @@ export default function Search() {
   const searchWord = location.state.searchWord;
   const color = location.state.color;
 
-  const [isShow, setIsShow] = useState(false);
-  const [info, setInfo] = useState([]);
-
+  const [openModalId,setOpenModalId] = useState(null);
+  const [modalItem, setModalItem] = useState(null);
 
   const { isLoading,isFetching, error, data : result } = useQuery({
     queryKey : 'data',
-    queryFn : () => search(user.uid, searchWord,color)
+    queryFn : () => search(user.uid, searchWord,color),
   },{refetchOnWindowFocus: false}); 
+  
+  const handleOpenModal = (id) => {
+    setOpenModalId(id);
+  }
+
+  const handleUpdateItem = (item) => {
+    setModalItem(item);
+  }
+
+  const handleCloseModal = () => {
+    setOpenModalId(null);
+  }
+  
+  useEffect(() => {
+    if(result !== undefined && openModalId !=null){
+      setModalItem(result.find((item) => item.id === openModalId));
+    }
+  }, [openModalId, result]);
 
   if(isLoading || isFetching){
     return (
@@ -61,10 +78,11 @@ export default function Search() {
           {result && result?.map((search) => (
             <MasonryItem
               search = {search}
-              isShow = {setIsShow}
-              info = {setInfo}/>
+              onOpenModal={handleOpenModal}/>
             ))}
-          {isShow && <DetailModal setIsShow={setIsShow} info={info}/>}
+          {openModalId !== null && (
+            <DetailModal onClose={handleCloseModal} info={modalItem} user ={user} onUpdateItem={handleUpdateItem}/>
+          )}
         </Masonry>
       </section>
     </section>

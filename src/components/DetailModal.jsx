@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { downloadFile } from '../api/search';
-import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
+import { HiOutlineHeart, HiHeart,HiOutlineDownload } from 'react-icons/hi';
+import { useLike } from '../hook/useLike';
 
-export default function DetailModal({setIsShow,info}) {
-    const result = info;
-    console.log(result);
-    const result_date = new Date(result.image_date).toString();
-    const [like,setLike] = useState(result.favorite_yn);
+export default function DetailModal({onClose,info,user}) {
+    const [result,setResult] = useState(info);
+    const result_date = new Date(result?.image_date).toString();
+    const [like,setLike] = useState(result?.favorite_yn);
+
+    const likeMutate = useLike('data'); // data가 업데이트 키
     
+    useEffect(()=>{
+        setResult(info);
+        setLike(info?.favorite_yn);
+    },[info]);
+
+    useEffect(()=>{
+        document.body.style.cssText = `
+            position: fixed; 
+            top: -${window.scrollY}px;
+            overflow-y: scroll;
+            width: 100%;`;
+        return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = "";
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+        };
+    },[]);
+    
+    const likeImage = () => {
+        likeMutate.mutate({ uid : user?.uid ,id : result?.id});
+    }
+
     const getDate = (date_str) => {
         const date = new Date(date_str);
 
@@ -32,43 +56,45 @@ export default function DetailModal({setIsShow,info}) {
         <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
             <div className="fixed inset-0 z-10 overflow-y-auto">
-                <div className="flex max-h-full w-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div className="flex max-h-full w-full items-center justify-center p-4 sm:items-center sm:p-0">
                     <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                         <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div className='grid grid-cols-5 min-w-full'>
-                                <div className='col-span-3 h-400'>
-                                    <img src={result.image_url} alt='url'/>
+                            <div className='grid grid-cols-4'>
+                                <div className='flex col-span-2 w-full h-96 items-center'>
+                                    <img src={result?.image_url} alt='url'/>
                                 </div>
-                                <div className='col-span-2 relative pl-4'>
-                                    <header className='flex items-center'>
+                                <div className='col-span-2 pl-4'>
+                                    <header className='flex'>
                                         <div className='w-5/6 outline-none focus:outline-none p-5'></div>
-                                        <div class="w-1/6 text-2xl">{like === 'n' ? <HiOutlineHeart className="text-gray-500"/> : <HiHeart className="text-red-400"/>}
-                                        </div>
                                         <button type="button" className="w-1/6 rounded-md text-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
-                                                onClick={()=> setIsShow(false)} >
+                                                onClick={onClose} >
                                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                         </svg>
                                         </button>
                                     </header>
                                     <ul className='grid grid-cols-1 gap-x-3 gap-y-3'>
-                                        <li>넓이 : {result.image_width}</li>
-                                        <li>높이 : {result.image_height}</li>
-                                        <li>카테고리 : {result.parent_name} &gt; {result.category_name}</li>
-                                        <li>생성일 : {getDate(result_date)}</li>
-                                        {result.rgb_info && 
+                                        <li>size : {result?.image_width} x {result?.image_height}</li>
+                                        <li>category : {result?.parent_name} &gt; {result?.category_name}</li>
+                                        <li className='pb-3'>created : {getDate(result_date)}</li>
+                                        {result?.rgb_info && 
                                             <li> color :
-                                            {result.rgb_info.map((rgb)=> (
+                                            {result?.rgb_info.map((rgb)=> (
                                                 <div className='inline-block m-2'
                                                     style={{backgroundColor : RGBToHex(rgb)}}>{RGBToHex(rgb)+" "}</div>
                                             ))}
                                             </li>
                                         }
-                                        {result.image_location &&
-                                            <li>위치 : {result.image_location}</li>}
-                                        <li className="bottom-0 left-0 right-0 pl-4 justify-center">
-                                            <button type='button' className='pt-4 pb-1 pr-3 bg-yellow-300 text-white px-4 py-2 rounded-lg' onClick={()=>{downloadFile(info.image_url)}}>다운로드</button>
+                                        {result?.image_location &&
+                                            <li>place : {result?.image_location}</li>}
+                                        <li className="absolute bottom-0 w-full pt-2">
+                                            <hr/>
+                                            <div className="grid grid-cols-9 pt-2 pb-3">
+                                                <div className="text-2xl col-span-1" onClick={likeImage}>{like === 'n' ? <HiOutlineHeart className="text-gray-500"/> : <HiHeart className="text-red-400"/>}</div>
+                                                <HiOutlineDownload className="text-2xl right-0" onClick={()=>{downloadFile(info.image_url)}}/>
+                                            </div>
                                         </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
