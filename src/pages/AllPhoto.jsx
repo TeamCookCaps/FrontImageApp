@@ -22,7 +22,7 @@ export default function AllPhoto() {
       >
         {photos &&
           photos.map((photo) => (
-            <PhotoCard key={photo.image_id} photo={photo} />
+            <PhotoCard key={photo.image_id} photo={photo} photos={photos} />
           ))}
       </Masonry>
     </>
