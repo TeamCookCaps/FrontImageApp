@@ -24,12 +24,13 @@ export async function uploadImage(uid, files) {
   }
 }
 
-export async function signUp(uid, nickname) {
+export async function signUp(uid, nickname, profile_img) {
   try {
     // 서버에 데이터 전송
     const response = await axios.post('http://localhost:4000/api/user', {
       uuid: uid,
       nick_name: nickname,
+      profile_img : profile_img,
     });
     console.log(response.data);
   } catch (error) {
