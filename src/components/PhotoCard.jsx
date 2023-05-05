@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
+import { useLike } from '../hook/useLike';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function PhotoCard({ photo }) {
+  const { user } = useAuthContext();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [like, setLike] = useState(photo.favorite_yn); // 테이블 바뀌어서 수정
+  const [like, setLike] = useState(() => {
+    return localStorage.getItem(`photo-${photo.image_id}`) || photo.favorite_yn;
+  });
   const imageName = getImageName(photo.image_url);
+  const updateKey = `photo-${photo.image_id}`;
+  const { mutate } = useLike(updateKey);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem(updateKey, like);
+  }, [like, updateKey]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -18,7 +29,8 @@ export default function PhotoCard({ photo }) {
     });
   const handleLikeClick = (e) => {
     e.stopPropagation(); // img 클릭으로 넘어가는 현상 방지
-    setLike((prevLike) => !prevLike);
+    setLike(like === 'y' ? 'n' : 'y');
+    mutate({ uid: user?.uid, id: photo.image_id });
   };
 
   return (
@@ -38,7 +50,7 @@ export default function PhotoCard({ photo }) {
         alt={photo.image_id}
         onLoad={handleImageLoad}
       />
-      {like ? (
+      {like === 'y' ? (
         <HiHeart
           className="absolute top-7 right-7 text-4xl text-red-400 hover:cursor-pointer"
           onClick={handleLikeClick}
@@ -49,7 +61,6 @@ export default function PhotoCard({ photo }) {
           onClick={handleLikeClick}
         />
       )}
-
       {!imageLoaded && (
         <div className="flex justify-center items-center w-full h-72">
           <svg
