@@ -15,6 +15,7 @@ import RecommandPhoto from './pages/RecommandPhoto';
 import Search from './pages/Search';
 import Trash from './pages/Trash';
 import ProtectedRoute from './pages/ProtectedRoute';
+import UserPage from './pages/UserPage';
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Trash />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/user/:uid',
+        element: (
+          <ProtectedRoute>
+            <UserPage/>
           </ProtectedRoute>
         ),
       },
