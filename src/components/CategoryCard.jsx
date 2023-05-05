@@ -23,6 +23,7 @@ export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           onClick={handleNavigate}
+          loading="lazy"
         />
         <div className="w-48 flex items-center justify-between pt-3 pl-1">
           <p className="font-medium text-xl text-gray-900">{categoryName}</p>
@@ -30,7 +31,6 @@ export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
         </div>
         <span className="pl-1 text-lg text-gray-400 font-normal">
           {numOfPhotos}
-          {console.log(photos) /* 나중에 삭제 */}
         </span>
       </div>
     </li>

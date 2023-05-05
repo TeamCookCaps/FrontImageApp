@@ -5,6 +5,7 @@ import { FcLike, FcDislike } from 'react-icons/fc';
 import { AiFillDelete } from 'react-icons/ai';
 import { removeOneImage } from '../api/trash';
 import { useAuthContext } from '../context/AuthContext';
+import { useLike } from '../hook/useLike';
 
 export default function PhotoDeatilDescription({
   photo: {
@@ -16,17 +17,25 @@ export default function PhotoDeatilDescription({
     parent_name,
     category_name,
     image_url,
+    favorite_yn,
   },
 }) {
   const { user } = useAuthContext();
-  const [like, setLike] = useState(true); // 테이블 바뀌어서 수정
+  const [like, setLike] = useState(() => {
+    return localStorage.getItem(`photo-${image_id}`) || favorite_yn;
+  });
+  const updateKey = `photo-${image_id}`;
+  const { mutate } = useLike(updateKey);
   const result_date = new Date(image_date).toString();
 
   const handleLikeClick = () => {
-    setLike((prevLike) => !prevLike);
+    const newLike = like === 'y' ? 'n' : 'y';
+    setLike(newLike);
+    localStorage.setItem(updateKey, newLike);
+    mutate({ uid: user?.uid, id: image_id });
   };
   const handleDelete = () => {
-    // removeOneImage(user.uid, image_id);
+    removeOneImage(user.uid, image_id);
   };
 
   return (
@@ -45,7 +54,7 @@ export default function PhotoDeatilDescription({
         )}
       </div>
       <div className="flex justify-center mt-5 space-x-5 text-2xl">
-        {like ? (
+        {like === 'n' ? (
           <button
             onClick={handleLikeClick}
             className="bg-red-300 text-white px-4 py-3 rounded-lg flex items-center space-x-2 whitespace-nowrap"
