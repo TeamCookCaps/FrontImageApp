@@ -4,7 +4,7 @@ import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { useLike } from '../hook/useLike';
 import { useAuthContext } from '../context/AuthContext';
 
-export default function PhotoCard({ photo }) {
+export default function PhotoCard({ photo, photos }) {
   const { user } = useAuthContext();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -25,7 +25,7 @@ export default function PhotoCard({ photo }) {
   };
   const handleNavigate = () =>
     navigate(`/allPhoto/${photo.category_name}/${imageName}`, {
-      state: { photo },
+      state: { photo, photos },
     });
   const handleLikeClick = (e) => {
     e.stopPropagation(); // img 클릭으로 넘어가는 현상 방지
