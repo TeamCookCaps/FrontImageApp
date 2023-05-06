@@ -78,7 +78,7 @@ export default function PhotoDetail() {
             <IoIosArrowForward onClick={handleGoNext} size={100} />
           </div>
         </div>
-        <PhotoDeatilDescription photo={photo} />
+        <PhotoDeatilDescription photo={photo} photos={photos} />
       </div>
       <button
         onClick={handleGoBack}

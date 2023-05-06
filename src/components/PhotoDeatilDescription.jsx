@@ -6,6 +6,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { removeOneImage } from '../api/trash';
 import { useAuthContext } from '../context/AuthContext';
 import { useLike } from '../hook/useLike';
+import { useNavigate } from 'react-router-dom';
 
 export default function PhotoDeatilDescription({
   photo: {
@@ -19,6 +20,7 @@ export default function PhotoDeatilDescription({
     image_url,
     favorite_yn,
   },
+  photos,
 }) {
   const { user } = useAuthContext();
   const [like, setLike] = useState(() => {
@@ -27,6 +29,7 @@ export default function PhotoDeatilDescription({
   const updateKey = `photo-${image_id}`;
   const { mutate } = useLike(updateKey);
   const result_date = new Date(image_date).toString();
+  const navigate = useNavigate();
 
   const handleLikeClick = () => {
     const newLike = like === 'y' ? 'n' : 'y';
@@ -34,8 +37,31 @@ export default function PhotoDeatilDescription({
     localStorage.setItem(updateKey, newLike);
     mutate({ uid: user?.uid, id: image_id });
   };
-  const handleDelete = () => {
-    removeOneImage(user.uid, image_id);
+  const handleDelete = async () => {
+    try {
+      await removeOneImage(user.uid, image_id);
+
+      const updatedPhotos = photos.filter((p) => p.image_id !== image_id);
+      // 사진이 한장도 남아있지 않다면 이전 페이지로 이동
+      if (updatedPhotos.length === 0) {
+        navigate(-1);
+        return;
+      }
+      const currentIndex = updatedPhotos.findIndex(
+        (p) => p.image_id === image_id
+      );
+      const nextIndex = (currentIndex + 1) % updatedPhotos.length;
+
+      navigate(
+        `/allPhoto/${updatedPhotos[nextIndex].category_name}/${updatedPhotos[nextIndex].imageName}`,
+        {
+          state: { photo: updatedPhotos[nextIndex], photos: updatedPhotos },
+          replace: true, // 기록을 남기지 않도록 설정
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
