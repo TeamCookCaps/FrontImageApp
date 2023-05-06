@@ -38,7 +38,7 @@ export default function Search() {
   
   useEffect(() => {
     if(result !== undefined && openModalId !=null){
-      setModalItem(result.find((item) => item.id === openModalId));
+      setModalItem(result.searchList.find((item) => item.id === openModalId));
     }
   }, [openModalId, result]);
 
