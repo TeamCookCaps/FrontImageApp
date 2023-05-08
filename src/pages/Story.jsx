@@ -13,18 +13,17 @@ export default function Story() {
   const [showModal, setShowModal] = useState(false);
   const story_yn = "Y";
 
-  const { isLoading, isFetching, error, data : result } = useQuery({
-    queryKey : 'storyImage', 
-    queryFn : () => getStoryImage(user.uid)
-  });
+  const { isLoading, isFetching, error, data : result } = useQuery(
+    ['storyImage'], () => getStoryImage(user.uid),
+  );
 
-  if(isLoading || isFetching){
+  /*if(isLoading || isFetching){
     return (
       <>
         <Loading/>
       </>
     )
-  }
+  }*/
 
   if(error) {
     return (<div>에러가 발생했습니다 : {error}</div>)
@@ -38,7 +37,7 @@ export default function Story() {
     ))}
 	</div>
 	
-	<BsPlusCircleFill className="text-7xl fixed bottom-10 right-14 hover:cursor-pointer"
+	<BsPlusCircleFill className="text-7xl fixed bottom-10 right-10 hover:cursor-pointer"
 	onClick={() => setShowModal(true)}
 	/>
 	{showModal && <Upload setShowModal={setShowModal} user={user} story_yn={story_yn}/>}

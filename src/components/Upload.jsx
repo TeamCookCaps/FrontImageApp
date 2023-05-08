@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { uploadImage } from '../api/database';
 import UploadingModal from './UploadingModal';
 
-export default function Upload({ setShowModal, user: { uid }, story_yn/*: { story_yn }*/ }) {
+export default function Upload({ setShowModal, user: { uid }, story_yn }) {
   const [files, setFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
 
