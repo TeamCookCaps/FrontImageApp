@@ -1,19 +1,12 @@
 import React from 'react';
 
-const StoryCard = ({storycard}) => {
+export default function StoryCard({ storycard }) {
     return (
-        <div>
-            <img src = {storycard.image} alt = {storycard.caption} />
-            <p>{storycard.caption}</p>
-            <ul>
-                {storycard.comments.map(comment => (
-                    <li key = {comment.id}>
-                        <strong>{comment.user}</strong> {comment.text}
-                    </li>
-                ))}
-            </ul>
+        <div className="relative h-60 w-60 md:w-72 md:h-72 lg:w-80 lg:h-80">
+            <img className="w-full h-full object-cover"
+            src = {storycard.image_url} 
+            alt = {storycard.image_id} 
+            />
         </div>
     );
 };
-
-export default StoryCard;
