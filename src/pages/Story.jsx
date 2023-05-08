@@ -1,84 +1,47 @@
 import React, { useState } from 'react';
+import StoryCard from '../components/StoryCard';
 import { useAuthContext } from '../context/AuthContext';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Upload from '../components/Upload';
+import { getStoryImage } from '../api/story';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../components/Loading';
+
 
 export default function Story() {
   const { user } = useAuthContext();
   const [showModal, setShowModal] = useState(false);
-  //const story_yn = 'Y';
-  
+  const story_yn = "Y";
+
+  const { isLoading, isFetching, error, data : result } = useQuery({
+    queryKey : 'storyImage', 
+    queryFn : () => getStoryImage(user.uid)
+  });
+
+  if(isLoading || isFetching){
+    return (
+      <>
+        <Loading/>
+      </>
+    )
+  }
+
+  if(error) {
+    return (<div>에러가 발생했습니다 : {error}</div>)
+  }
+
   return (
 	<>
-	<div class="container">
-
-		<div class="gallery">
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1498471731312-b6d2b8280c61?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1515814472071-4d632dbc5d4a?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-			<div class="gallery-item" tabindex="0">
-
-				<img src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=500&h=500&fit=crop" class="gallery-image" alt=""/>
-
-			</div>
-
-		</div>
-		
-
-		<div class="loader"></div>
-
+	<div class="flex space-x-4 overflow-x-auto p-4">
+		{result && result?.map((storycard) => (
+      <StoryCard key={storycard.image_id} storycard={storycard}/>
+    ))}
 	</div>
-	<BsPlusCircleFill
-            className="text-7xl fixed bottom-10 right-10 hover:cursor-pointer"
-            onClick={() => setShowModal(true)}
-          />
-	{showModal && <Upload setShowModal={setShowModal} user={user} /*story_yn={story_yn}*//>}
+	
+	<BsPlusCircleFill className="text-7xl fixed bottom-10 right-14 hover:cursor-pointer"
+	onClick={() => setShowModal(true)}
+	/>
+	{showModal && <Upload setShowModal={setShowModal} user={user} story_yn={story_yn}/>}
 	</>
-  )
+  );
 }

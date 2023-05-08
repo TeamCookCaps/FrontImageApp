@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-export async function uploadImage(uid, files) {
+export async function uploadImage(uid, files, story_yn) {
   try {
     const formData = new FormData();
     formData.append('uid', uid);
     for (let i = 0; i < files.length; i++) {
       formData.append('file_list', files[i]);
     }
+    formData.append('story_yn', story_yn);
 
     // console에서 데이터 확인용
     for (let datas of formData) {
