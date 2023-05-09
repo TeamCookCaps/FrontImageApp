@@ -53,7 +53,9 @@ export default function PhotoDeatilDescription({
       const nextIndex = (currentIndex + 1) % updatedPhotos.length;
 
       navigate(
-        `/allPhoto/${updatedPhotos[nextIndex].category_name}/${updatedPhotos[nextIndex].imageName}`,
+        `/allPhoto/${updatedPhotos[nextIndex].category_name}/${getImageName(
+          updatedPhotos[nextIndex].image_url
+        )}`,
         {
           state: { photo: updatedPhotos[nextIndex], photos: updatedPhotos },
           replace: true, // 기록을 남기지 않도록 설정
@@ -140,4 +142,12 @@ function getDate(date_str) {
     ':' +
     seconds
   );
+}
+
+function getImageName(url) {
+  const imageName = url?.substring(
+    url.lastIndexOf('/') + 1,
+    url.lastIndexOf('.')
+  );
+  return imageName;
 }
