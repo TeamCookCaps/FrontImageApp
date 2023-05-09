@@ -42,7 +42,9 @@ export default function PhotoDetail() {
     const currentIndex = photos.findIndex((p) => p.id === photo.id);
     const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
     navigate(
-      `/allPhoto/${photos[prevIndex].category_name}/${photos[prevIndex].imageName}`,
+      `/allPhoto/${photos[prevIndex].category_name}/${getImageName(
+        photos[prevIndex].image_url
+      )}`,
       {
         state: { photo: photos[prevIndex], photos: photos },
         replace: true, // 기록을 남기지 않도록 설정
@@ -53,7 +55,9 @@ export default function PhotoDetail() {
     const currentIndex = photos.findIndex((p) => p.id === photo.id);
     const nextIndex = (currentIndex + 1) % photos.length;
     navigate(
-      `/allPhoto/${photos[nextIndex].category_name}/${photos[nextIndex].imageName}`,
+      `/allPhoto/${photos[nextIndex].category_name}/${getImageName(
+        photos[nextIndex].image_url
+      )}`,
       {
         state: { photo: photos[nextIndex], photos: photos },
         replace: true, // 기록을 남기지 않도록 설정
@@ -112,4 +116,12 @@ function calculateImageSize(imageSize, containerSize) {
   } else {
     return { width: 0, height: 0 };
   }
+}
+
+function getImageName(url) {
+  const imageName = url?.substring(
+    url.lastIndexOf('/') + 1,
+    url.lastIndexOf('.')
+  );
+  return imageName;
 }
