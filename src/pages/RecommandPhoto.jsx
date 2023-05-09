@@ -3,47 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getRecommandImage } from '../api/recommand';
 import { useAuthContext } from '../context/AuthContext';
 
-// 임시 데이터
-const recommands = [
-  {
-    photoId: 1,
-    href: '#',
-    category: 'category1',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
-    imageAlt: "ex1",
-  },
-  {
-    photoId: 2,
-    href: '#',
-    category: 'category2',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg',
-    imageAlt: "ex2",
-  },
-  {
-    photoId: 3,
-    href: '#',
-    category: 'category3',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg',
-    imageAlt: "ex3",
-  },
-  {
-    photoId: 4,
-    href: '#',
-    category: 'category4',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-    imageAlt: "ex4",
-  },
-  {
-    photoId: 5,
-    href: '#',
-    category: 'category5',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg',
-    imageAlt: "ex5",
-  }
-
-  
-]
-
 export default function RecommandPhoto() {
 
   const { user } = useAuthContext();
