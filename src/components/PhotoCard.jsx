@@ -11,14 +11,24 @@ export default function PhotoCard({ photo, photos }) {
   const [like, setLike] = useState(() => {
     return localStorage.getItem(`photo-${photo.image_id}`) || photo.favorite_yn;
   });
+  const [deleted, setDeleted] = useState(() => {
+    return (
+      localStorage.getItem(`photo-deleted-${photo.image_id}`) ||
+      photo.deleted_yn
+    );
+  });
   const imageName = getImageName(photo.image_url);
   const updateKey = `photo-${photo.image_id}`;
+  const updateDeleteKey = `photo-deleted-${photo.image_id}`;
   const { mutate } = useLike(updateKey);
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem(updateKey, like);
   }, [like, updateKey]);
+  useEffect(() => {
+    localStorage.setItem(updateDeleteKey, deleted);
+  }, [deleted, updateDeleteKey]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
