@@ -19,6 +19,7 @@ export default function PhotoDeatilDescription({
     category_name,
     image_url,
     favorite_yn,
+    delete_yn,
   },
   photos,
 }) {
@@ -27,6 +28,7 @@ export default function PhotoDeatilDescription({
     return localStorage.getItem(`photo-${image_id}`) || favorite_yn;
   });
   const updateKey = `photo-${image_id}`;
+  const updateDeleteKey = `photo-deleted-${image_id}`;
   const { mutate } = useLike(updateKey);
   const result_date = new Date(image_date).toString();
   const navigate = useNavigate();
@@ -40,6 +42,9 @@ export default function PhotoDeatilDescription({
   const handleDelete = async () => {
     try {
       await removeOneImage(user.uid, image_id);
+
+      const newDelete = delete_yn === 'y' ? 'n' : 'y';
+      localStorage.setItem(updateDeleteKey, newDelete);
 
       const updatedPhotos = photos.filter((p) => p.image_id !== image_id);
       // 사진이 한장도 남아있지 않다면 이전 페이지로 이동
@@ -70,7 +75,7 @@ export default function PhotoDeatilDescription({
     <div className="w-2/6 h-full flex flex-col justify-center items-center m-4">
       <div className="text-center text-3xl">
         <h2 className="text-4xl font-bold pb-5">
-          {parent_name} &gt; {category_name}
+          {category_name ? `${parent_name} > ${category_name}` : '기타'}
         </h2>
         <p className="text-gray-600 pb-4">width : {image_width}</p>
         <p className="text-gray-600 pb-4">height : {image_height}</p>
