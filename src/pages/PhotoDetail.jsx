@@ -29,7 +29,7 @@ export default function PhotoDetail() {
       const containerHeight = containerRef.current.offsetHeight;
       setContainerSize({ width: containerWidth, height: containerHeight });
     }
-  }, [imgRef.current, containerRef.current]);
+  }, []);
 
   const imageSizeStyles = calculateImageSize(imageSize, containerSize);
   const imageSizeClassName =
@@ -72,6 +72,7 @@ export default function PhotoDetail() {
           <img
             ref={imgRef}
             src={photo.image_url}
+            alt={photo.image_id}
             className={`object-contain ${imageSizeClassName}`}
             style={imageSizeStyles}
           />

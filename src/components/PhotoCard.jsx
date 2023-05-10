@@ -11,7 +11,7 @@ export default function PhotoCard({ photo, photos }) {
   const [like, setLike] = useState(() => {
     return localStorage.getItem(`photo-${photo.image_id}`) || photo.favorite_yn;
   });
-  const [deleted, setDeleted] = useState(() => {
+  const [deleted] = useState(() => {
     return (
       localStorage.getItem(`photo-deleted-${photo.image_id}`) ||
       photo.deleted_yn
