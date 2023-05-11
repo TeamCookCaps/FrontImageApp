@@ -95,7 +95,7 @@ export default function PhotoCard({ photo, photos }) {
       )}
       {isAnimated && (
         <div className="absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2">
-          <Lottie options={defaultOptions} height={450} width={450} />
+          <Lottie options={defaultOptions} height={400} width={400} />
         </div>
       )}
       {!imageLoaded && (

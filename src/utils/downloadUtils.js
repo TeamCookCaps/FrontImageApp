@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import axios from 'axios';
+import { getImageName } from './imageUtils';
 
 export async function downloadPhotosAsZip(photos, categoryName) {
   const zip = new JSZip();
@@ -8,8 +9,10 @@ export async function downloadPhotosAsZip(photos, categoryName) {
 
   // 각 이미지 다운로드 및 Blob 생성
   photos.forEach((photo, index) => {
-    const filename = `${categoryName === null ? '기타' : categoryName}_${
-      index + 1
+    const filename = `${
+      categoryName === null
+        ? `기타_${index + 1}`
+        : `${getImageName(photo.image_url)}`
     }.jpg`;
     const imagePromise = fetch(photo.image_url)
       .then((response) => response.blob())
