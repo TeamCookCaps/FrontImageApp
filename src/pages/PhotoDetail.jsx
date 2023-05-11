@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { RiCloseLine } from 'react-icons/ri';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import PhotoDeatilDescription from '../components/PhotoDeatilDescription';
+import { getImageName } from '../utils/imageUtils';
 
 export default function PhotoDetail() {
   const navigate = useNavigate();
@@ -125,12 +126,4 @@ function calculateImageSize(imageSize, containerSize) {
   } else {
     return { width: 0, height: 0 };
   }
-}
-
-function getImageName(url) {
-  const imageName = url?.substring(
-    url.lastIndexOf('/') + 1,
-    url.lastIndexOf('.')
-  );
-  return imageName;
 }

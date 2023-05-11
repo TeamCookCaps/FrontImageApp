@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { downloadFile } from '../api/search';
 import { FiDownload } from 'react-icons/fi';
 import { FcLike, FcDislike } from 'react-icons/fc';
 import { AiFillDelete } from 'react-icons/ai';
@@ -11,6 +10,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Lottie from 'react-lottie';
 import animationData from '../lotties/heart-fav.json';
+import { downloadPhoto } from '../utils/downloadUtils';
+import { getDate } from '../utils/dateUtils';
+import { getImageName } from '../utils/imageUtils';
 
 export default function PhotoDeatilDescription({
   photo: {
@@ -151,7 +153,7 @@ export default function PhotoDeatilDescription({
         <button
           className="bg-yellow-300 text-white px-4 py-3 rounded-lg flex items-center space-x-2 whitespace-nowrap"
           onClick={() => {
-            downloadFile(image_url);
+            downloadPhoto(image_url);
           }}
         >
           <FiDownload />
@@ -167,36 +169,4 @@ export default function PhotoDeatilDescription({
       </div>
     </div>
   );
-}
-
-function getDate(date_str) {
-  const date = new Date(date_str);
-
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hour = String(date.getHours()).padStart(2, '0');
-  const minites = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-
-  return (
-    date.getFullYear().toString() +
-    '-' +
-    month +
-    '-' +
-    day +
-    ' ' +
-    hour +
-    ':' +
-    minites +
-    ':' +
-    seconds
-  );
-}
-
-function getImageName(url) {
-  const imageName = url?.substring(
-    url.lastIndexOf('/') + 1,
-    url.lastIndexOf('.')
-  );
-  return imageName;
 }
