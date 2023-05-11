@@ -5,6 +5,7 @@ import { useLike } from '../hook/useLike';
 import { useAuthContext } from '../context/AuthContext';
 import Lottie from 'react-lottie';
 import animationData from '../lotties/heart-fav.json';
+import { getImageName } from '../utils/imageUtils';
 
 export default function PhotoCard({ photo, photos }) {
   const { user } = useAuthContext();
@@ -94,7 +95,7 @@ export default function PhotoCard({ photo, photos }) {
       )}
       {isAnimated && (
         <div className="absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2">
-          <Lottie options={defaultOptions} height={350} width={350} />
+          <Lottie options={defaultOptions} height={400} width={400} />
         </div>
       )}
       {!imageLoaded && (
@@ -110,12 +111,4 @@ export default function PhotoCard({ photo, photos }) {
       )}
     </div>
   );
-}
-
-function getImageName(url) {
-  const imageName = url.substring(
-    url.lastIndexOf('/') + 1,
-    url.lastIndexOf('.')
-  );
-  return imageName;
 }
