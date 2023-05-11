@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RxPerson } from 'react-icons/rx';
 import { MdLogout } from 'react-icons/md';
 import User from './User';
@@ -11,9 +11,7 @@ export default function Header() {
   return (
     <header className="w-full flex items-center justify-between mb-10">
       {!user && <div className="w-9/12" />}
-      {user && (
-        <Searchbar />
-      )}
+      {user && <Searchbar />}
       <div className="flex items-center gap-3">
         {user && <User user={user} />}
         {!user && (
