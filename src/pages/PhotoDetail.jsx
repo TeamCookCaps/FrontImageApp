@@ -10,6 +10,7 @@ export default function PhotoDetail() {
     state: { photo, photos },
   } = useLocation();
 
+  const [isVisible, setIsVisible] = useState(true);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
@@ -29,14 +30,17 @@ export default function PhotoDetail() {
       const containerHeight = containerRef.current.offsetHeight;
       setContainerSize({ width: containerWidth, height: containerHeight });
     }
-  }, [imgRef.current, containerRef.current]);
+  }, []);
 
   const imageSizeStyles = calculateImageSize(imageSize, containerSize);
   const imageSizeClassName =
     imageSizeStyles.width && imageSizeStyles.height ? 'w-full h-full' : '';
 
   const handleGoBack = () => {
-    navigate(-1);
+    setIsVisible(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 500);
   };
   const handleGoPrev = () => {
     const currentIndex = photos.findIndex((p) => p.id === photo.id);
@@ -66,12 +70,17 @@ export default function PhotoDetail() {
   };
 
   return (
-    <section className="fixed top-0 left-0 w-full h-full bg-gray-950 bg-opacity-75 flex justify-center items-center z-10">
+    <section
+      className={`fixed top-0 left-0 w-full h-full bg-gray-950 bg-opacity-75 flex justify-center items-center z-10 transition-opacity ${
+        isVisible ? 'opacity-100 duration-500' : 'opacity-0 duration-500'
+      }`}
+    >
       <div ref={containerRef} className="flex w-9/12 h-full bg-white">
         <div className="w-4/6 h-full flex justify-center items-center">
           <img
             ref={imgRef}
             src={photo.image_url}
+            alt={photo.image_id}
             className={`object-contain ${imageSizeClassName}`}
             style={imageSizeStyles}
           />
