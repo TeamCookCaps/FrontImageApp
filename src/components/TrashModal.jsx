@@ -82,13 +82,22 @@ export default function TrashModal({isOpen, setIsOpen, trashImageInfo}) {
                           <ExclamationTriangleIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
                         </div> */}
                         <div className="mt-3 text-center sm:mt-0 sm:text-left">
-                          <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                            휴지통에 있는 사진을 전부 지우시겠습니까?
+                          <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900 sm:pb-4">
+                            선택한 사진을 어떻게 하시겠습니까?
                           </Dialog.Title>
                           <div className="mt-2">
                             <img src={trashImageInfo?.image_url} />
-                            <p className="text-sm text-gray-500">
-                              '예'를 누르면 더 이상 복구가 불가능합니다.
+                            <p className="sm:pt-4">
+                                <span className='text-sm  text-gray-500'>width : </span>
+                                <span className='text-md text-gray-600'>{trashImageInfo?.image_width}</span>
+                            </p>
+                            <p>
+                                <span className='text-sm  text-gray-500'>height : </span>
+                                <span className='text-md text-gray-600'>{trashImageInfo?.image_height}</span>
+                            </p>       
+                            <p>
+                                <span className='text-sm  text-gray-500'>업로드 날짜 : </span>
+                                <span className='text-md text-gray-600'>{trashImageInfo?.image_date}</span>
                             </p>
                           </div>
                         </div>
