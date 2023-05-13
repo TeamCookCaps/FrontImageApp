@@ -3,39 +3,48 @@ import { useQuery } from '@tanstack/react-query';
 import { getRecommandImage } from '../api/recommand';
 import { useAuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
-
+import Slider from 'react-slick';
 
 export default function Banner() {
   const { user } = useAuthContext();
   const { isLoading, isFetching, error, data : result } = useQuery(['recommandImage'], () => getRecommandImage(user.uid));
-
+  const idx = 0
 
   const settings = {
+    slide: 'div',
     dots: true,
-    arrows: true,
     infinite: true,
-    speed: 500,
+    autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 500,
-    pauseOnHover: true,
+    autoplaySpeed: 3000,
   };
 
   return (
-    <section className="flex flex-col items-center">
-      {result && 
+    <section className="items-center">
+      {result &&
           <Link
             to="/recommand"
             className="flex justify-center items-center"
           >
             <img
-              src={result[0]?.image_url}
+              src={result[idx]?.image_url}
               alt="recommandImage"
-              className="h-1/4 w-1/4 object-cover object-center lg:h-1/4 lg:w-1/4"
+              className="h-54 w-96 object-cover object-center lg:h-54 lg:w-96"
             />
           </Link>
       }
+      {/* <Slider {...settings}>
+        {result && result?.map((recommand) => (
+          <div key={recommand.id} className="justify-center items-center">
+          <img
+            src={recommand.image_url}
+            alt="recommandImage"
+            className="h-54 w-96 lg:h-54 lg:w-96"
+          />
+          </div>
+        ))}
+      </Slider> */}
     </section>
   );
 }
