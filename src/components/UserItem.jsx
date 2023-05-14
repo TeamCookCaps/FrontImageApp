@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UserItem({ user }) {
   const navigate = useNavigate();
+  console.log("userItem");
   console.log(user);
 
   const handleGoPage = () => {
-    navigate(`/user/${user.UID}`,{
+    navigate(`/user/${user.uid}`,{
       state: { user },
     });
   }
