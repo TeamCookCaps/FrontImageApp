@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Main from '../components/Main';
 import ChatModal from '../components/ChatModal';
+import { useQuery } from '@tanstack/react-query';
+import { getStoryImage } from '../api/story';
+import StoryCard from '../components/StoryCard';
 
 export default function UserPage() {
   const {
@@ -10,6 +13,10 @@ export default function UserPage() {
   console.log(user);
   
   const [showModal, setShowModal] = useState(false);
+
+  const { isLoading, isFetching, error, data : story_result } = useQuery(
+    ['storyImage'], () => getStoryImage(user.uid),
+  );
 
   return (
     <>
@@ -27,6 +34,17 @@ export default function UserPage() {
         </div>
       </section>
       <Main user={user} />
+      <section>
+      <h2 className="pb-7 text-3xl font-bold">Story</h2>
+        <div class=/*"flex space-x-4 overflow-x-auto p-4"*/"flex flex-wrap p-4 -mx-4"> 
+            {story_result && story_result?.map((storycard) => (
+            <div class="w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-6">
+            <StoryCard key={storycard.image_id} storycard={storycard}/>
+            </div>
+            ))}
+        </div>
+      </section>
+      
       {showModal && <ChatModal setShowModal={setShowModal} receiver={user}/>}
     </>
   );
