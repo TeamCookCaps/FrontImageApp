@@ -9,6 +9,7 @@ import Upload from '../components/Upload';
 export default function Home() {
   const { user } = useAuthContext();
   const [showModal, setShowModal] = useState(false);
+  const story_yn = "N";
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function Home() {
           />
         </>
       )}
-      {showModal && <Upload setShowModal={setShowModal} user={user} />}
+      {showModal && <Upload setShowModal={setShowModal} user={user} story_yn={story_yn}/>}
     </>
   );
 }

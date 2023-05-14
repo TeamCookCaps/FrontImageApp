@@ -3,34 +3,66 @@ import { useNavigate } from 'react-router-dom';
 import { HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { useLike } from '../hook/useLike';
 import { useAuthContext } from '../context/AuthContext';
+import Lottie from 'react-lottie';
+import animationData from '../lotties/heart-fav.json';
+import { getImageName } from '../utils/imageUtils';
 
-export default function PhotoCard({ photo }) {
+export default function PhotoCard({ photo, photos }) {
   const { user } = useAuthContext();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const [isAnimated, setIsAnimated] = useState(false);
   const [like, setLike] = useState(() => {
     return localStorage.getItem(`photo-${photo.image_id}`) || photo.favorite_yn;
   });
+  const [deleted] = useState(() => {
+    return (
+      localStorage.getItem(`photo-deleted-${photo.image_id}`) ||
+      photo.deleted_yn
+    );
+  });
   const imageName = getImageName(photo.image_url);
   const updateKey = `photo-${photo.image_id}`;
+  const updateDeleteKey = `photo-deleted-${photo.image_id}`;
   const { mutate } = useLike(updateKey);
   const navigate = useNavigate();
+
+  // 하트 애니메이션
+  const defaultOptions = {
+    loop: false,
+    autoplay: false,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   useEffect(() => {
     localStorage.setItem(updateKey, like);
   }, [like, updateKey]);
+  useEffect(() => {
+    localStorage.setItem(updateDeleteKey, deleted);
+  }, [deleted, updateDeleteKey]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
   const handleNavigate = () =>
     navigate(`/allPhoto/${photo.category_name}/${imageName}`, {
-      state: { photo },
+      state: { photo, photos },
     });
   const handleLikeClick = (e) => {
     e.stopPropagation(); // img 클릭으로 넘어가는 현상 방지
-    setLike(like === 'y' ? 'n' : 'y');
+    const newLike = like === 'y' ? 'n' : 'y';
+    setLike(newLike);
     mutate({ uid: user?.uid, id: photo.image_id });
+
+    if (newLike === 'y' && !isAnimated) {
+      setIsAnimated(true);
+      setTimeout(() => {
+        setIsAnimated(false);
+      }, 1000);
+    }
   };
 
   return (
@@ -61,6 +93,11 @@ export default function PhotoCard({ photo }) {
           onClick={handleLikeClick}
         />
       )}
+      {isAnimated && (
+        <div className="absolute top-1/2 right-1/2 transform translate-x-1/2 -translate-y-1/2">
+          <Lottie options={defaultOptions} height={400} width={400} />
+        </div>
+      )}
       {!imageLoaded && (
         <div className="flex justify-center items-center w-full h-72">
           <svg
@@ -74,12 +111,4 @@ export default function PhotoCard({ photo }) {
       )}
     </div>
   );
-}
-
-function getImageName(url) {
-  const imageName = url.substring(
-    url.lastIndexOf('/') + 1,
-    url.lastIndexOf('.')
-  );
-  return imageName;
 }

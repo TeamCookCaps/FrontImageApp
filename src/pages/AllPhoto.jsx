@@ -21,9 +21,14 @@ export default function AllPhoto() {
         }}
       >
         {photos &&
-          photos.map((photo) => (
-            <PhotoCard key={photo.image_id} photo={photo} />
-          ))}
+          photos.map((photo) => {
+            const deleted =
+              localStorage.getItem(`photo-deleted-${photo.image_id}`) ||
+              photo.deleted_yn;
+            return deleted === 'y' ? null : (
+              <PhotoCard key={photo.image_id} photo={photo} photos={photos} />
+            );
+          })}
       </Masonry>
     </>
   );

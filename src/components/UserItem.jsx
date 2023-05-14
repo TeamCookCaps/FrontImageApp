@@ -11,7 +11,7 @@ export default function UserItem({ user }) {
     navigate(`/user/${user.uid}`,{
       state: { user },
     });
-  }
+  };
 
   return (
     <div className="flex justify-center mb-3">
@@ -20,8 +20,11 @@ export default function UserItem({ user }) {
         src={user.profile_img}
         alt={user.nick_name}
       />
-      <span className="relative w-full text-xl truncate ">{user.nick_name}</span>
-      <HiHome className="flex text-3xl justify-end ml-5 mr-5 text-gray-400 hover:text-gray-700" onClick={handleGoPage}/>
+      <span className="relative w-full text-xl truncate">{user.nick_name}</span>
+      <HiHome
+        className="flex text-3xl justify-end ml-5 mr-5 text-gray-400 hover:text-gray-700 cursor-pointer"
+        onClick={handleGoPage}
+      />
     </div>
   );
 }

@@ -1,29 +1,28 @@
-import React , {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { HiOutlineHeart, HiHeart, HiSearch } from 'react-icons/hi';
 import { useAuthContext } from '../context/AuthContext';
 import { useLike } from '../hook/useLike';
 
-export default function MasonryItem({ search ,onOpenModal }) {
+export default function MasonryItem({ search, onOpenModal }) {
   const { user } = useAuthContext();
-  const id =  search.id;
+  const id = search.id;
   const favorite_yn = search.favorite_yn;
 
-  const [like, setLike] = useState(favorite_yn);
+  const [like] = useState(favorite_yn);
   const [hovered, setHovered] = useState(false);
   const [load, setLoad] = useState(false);
 
   const likeMutate = useLike('data'); // data가 업데이트 키
 
   const showDetail = () => {
-    // isShow(true) 
+    // isShow(true)
     // info(search)
     onOpenModal(search.id);
-  }
-
+  };
 
   const likeImage = () => {
-    likeMutate.mutate({ uid : user?.uid ,id : id});
-  }
+    likeMutate.mutate({ uid: user?.uid, id: id });
+  };
 
   const handleImageLoad = () => {
     setLoad(true);
@@ -36,17 +35,26 @@ export default function MasonryItem({ search ,onOpenModal }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <ul className="absolute top-5 right-4 text-3xl">
+        <ul className="absolute top-7 right-7 text-4xl">
           <li>
             {like === 'n' ? (
-              <HiOutlineHeart className="text-gray-500" onClick={likeImage} />
+              <HiOutlineHeart
+                className="text-gray-500 cursor-pointer"
+                onClick={likeImage}
+              />
             ) : (
-              <HiHeart className="text-red-400" onClick={likeImage} />
+              <HiHeart
+                className="text-red-400 cursor-pointer"
+                onClick={likeImage}
+              />
             )}
           </li>
           <li>
             {hovered && (
-              <HiSearch className="text-gray-500" onClick={showDetail} />
+              <HiSearch
+                className="text-gray-500 cursor-pointer"
+                onClick={showDetail}
+              />
             )}
           </li>
         </ul>

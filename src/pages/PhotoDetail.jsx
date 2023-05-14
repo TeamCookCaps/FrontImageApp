@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RiCloseLine } from 'react-icons/ri';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import PhotoDeatilDescription from '../components/PhotoDeatilDescription';
+import { getImageName } from '../utils/imageUtils';
 
 export default function PhotoDetail() {
   const navigate = useNavigate();
   const {
-    state: { photo },
+    state: { photo, photos },
   } = useLocation();
 
+  const [isVisible, setIsVisible] = useState(true);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
@@ -29,49 +31,68 @@ export default function PhotoDetail() {
       const containerHeight = containerRef.current.offsetHeight;
       setContainerSize({ width: containerWidth, height: containerHeight });
     }
-  }, [imgRef.current, containerRef.current]);
+  }, []);
 
   const imageSizeStyles = calculateImageSize(imageSize, containerSize);
   const imageSizeClassName =
     imageSizeStyles.width && imageSizeStyles.height ? 'w-full h-full' : '';
 
   const handleGoBack = () => {
-    navigate(-1);
+    setIsVisible(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 500);
   };
-  // 개발중
+  const handleGoPrev = () => {
+    const currentIndex = photos.findIndex((p) => p.id === photo.id);
+    const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
+    navigate(
+      `/allPhoto/${photos[prevIndex].category_name}/${getImageName(
+        photos[prevIndex].image_url
+      )}`,
+      {
+        state: { photo: photos[prevIndex], photos: photos },
+        replace: true, // 기록을 남기지 않도록 설정
+      }
+    );
+  };
   const handleGoNext = () => {
-    //   const nextIndex = photoIndex + 1;
-    //   // photos 배열 끝에 도달하면 처음 index로 돌아감
-    //   if (nextIndex >= photos.length) {
-    //     setPhotoIndex(0);
-    //   } else {
-    //     setPhotoIndex(nextIndex);
-    //   }
-    //   // `/allPhoto/${photo.category_name}/${imageName}`
-    //   // 다음 Photo의 image_url로 navigate
-    //   navigate(
-    //   `/allPhoto/${photos[nextIndex].category_name}/${photos[nextIndex].imageName}`
-    //   );
+    const currentIndex = photos.findIndex((p) => p.id === photo.id);
+    const nextIndex = (currentIndex + 1) % photos.length;
+    navigate(
+      `/allPhoto/${photos[nextIndex].category_name}/${getImageName(
+        photos[nextIndex].image_url
+      )}`,
+      {
+        state: { photo: photos[nextIndex], photos: photos },
+        replace: true, // 기록을 남기지 않도록 설정
+      }
+    );
   };
 
   return (
-    <section className="fixed top-0 left-0 w-full h-full bg-gray-950 bg-opacity-75 flex justify-center items-center z-10">
+    <section
+      className={`fixed top-0 left-0 w-full h-full bg-gray-950 bg-opacity-75 flex justify-center items-center z-10 transition-opacity ${
+        isVisible ? 'opacity-100 duration-500' : 'opacity-0 duration-500'
+      }`}
+    >
       <div ref={containerRef} className="flex w-9/12 h-full bg-white">
         <div className="w-4/6 h-full flex justify-center items-center">
           <img
             ref={imgRef}
             src={photo.image_url}
+            alt={photo.image_id}
             className={`object-contain ${imageSizeClassName}`}
             style={imageSizeStyles}
           />
           <div className="absolute top-1/2 transform -translate-y-1/2 left-0 text-gray-400 hover:text-white cursor-pointer">
-            <IoIosArrowBack size={100} />
+            <IoIosArrowBack onClick={handleGoPrev} size={100} />
           </div>
           <div className="absolute top-1/2 transform -translate-y-1/2 right-0 text-gray-400 hover:text-white cursor-pointer">
             <IoIosArrowForward onClick={handleGoNext} size={100} />
           </div>
         </div>
-        <PhotoDeatilDescription photo={photo} />
+        <PhotoDeatilDescription photo={photo} photos={photos} />
       </div>
       <button
         onClick={handleGoBack}
