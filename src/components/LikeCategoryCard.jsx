@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { HiHeart } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import { getImageName } from '../utils/imageUtils';
 
-export default function LikeCategoryCard({ photo: { id, image_url, favorite_yn } }) {
+export default function LikeCategoryCard({ photo: { id, image_id, image_width, image_height, image_date, image_location, parent_name, category_name, image_url, favorite_yn, delete_yn } , photos}) {
   const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate()
+  const imageName = getImageName(image_url);
+  const photo = { id, image_id, image_width, image_height, image_date, image_location, parent_name, category_name, image_url, favorite_yn, delete_yn }
 
-  //console.log("yn : " + favorite_yn)
+  const handleNavigate = () =>
+  navigate(`/allPhoto/${category_name}/${imageName}`, {
+    state: { photo, photos },
+  });
 
   if(favorite_yn == 'y') {
   return (
@@ -18,6 +26,7 @@ export default function LikeCategoryCard({ photo: { id, image_url, favorite_yn }
           alt={id}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
+          onClick={() => handleNavigate()}
         />
         <HiHeart className="absolute top-3 right-4 text-4xl text-red-400 hover:cursor-pointer" />
       </div>
