@@ -19,11 +19,14 @@ export default function ChatModal({ setShowModal, receiver }) {
         uid2: receiver.uid,
         chatMessage: 'openModal',
       }));
-    });
 
-    ws.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
-      setChatMessages((prevMessages) => [...prevMessages, data]);
+      ws.addEventListener('message', (event) => {
+        console.log(event);
+        const { uid1, chatMessage } = JSON.parse(event.data);
+        console.log(uid1, chatMessage);
+        const newData = { uid1: uid1, chatMessage: chatMessage };
+        setChatMessages([...chatMessages, newData]);
+      });
     });
 
     ws.addEventListener('close', () => {
