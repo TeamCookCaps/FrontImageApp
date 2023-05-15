@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { HiHeart } from 'react-icons/hi';
 
-export default function LikeCategoryCard({ photo: { id, image_url } }) {
+export default function LikeCategoryCard({ photo: { id, image_url, favorite_yn } }) {
   const [hovered, setHovered] = useState(false);
 
+  //console.log("yn : " + favorite_yn)
+
+  if(favorite_yn == 'y') {
   return (
     <li className="flex flex-col pb-10 shrink-0">
       <div className="relative w-48 h-48">
@@ -20,4 +23,5 @@ export default function LikeCategoryCard({ photo: { id, image_url } }) {
       </div>
     </li>
   );
+  }
 }
