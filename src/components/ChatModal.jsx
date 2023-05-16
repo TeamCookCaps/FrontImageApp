@@ -22,10 +22,9 @@ export default function ChatModal({ setShowModal, receiver }) {
 
       ws.addEventListener('message', (event) => {
         console.log(event);
-        const { uid1, chatMessage } = JSON.parse(event.data);
-        console.log(uid1, chatMessage);
-        const newData = { uid1: uid1, chatMessage: chatMessage };
-        setChatMessages([...chatMessages, newData]);
+        const messages = JSON.parse(event.data);
+        const newMessages = messages.map(({ uid1, message }) => ({ uid1, chatMessage: message }));
+        setChatMessages(newMessages);
       });
     });
 
@@ -57,7 +56,7 @@ export default function ChatModal({ setShowModal, receiver }) {
 
     const newData = { uid1: user.uid, chatMessage: inputValue };
     setInputValue('');
-    setChatMessages([...chatMessages, newData]);
+    setChatMessages((prevChatMessages) => [...prevChatMessages, newData]);
   };
 
   return (
