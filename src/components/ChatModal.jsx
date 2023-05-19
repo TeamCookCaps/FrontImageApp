@@ -19,11 +19,13 @@ export default function ChatModal({ setShowModal, receiver }) {
         uid2: receiver.uid,
         chatMessage: 'openModal',
       }));
-    });
 
-    ws.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
-      setChatMessages((prevMessages) => [...prevMessages, data]);
+      ws.addEventListener('message', (event) => {
+        console.log(event);
+        const messages = JSON.parse(event.data);
+        const newMessages = messages.map(({ uid1, message }) => ({ uid1, chatMessage: message }));
+        setChatMessages(newMessages);
+      });
     });
 
     ws.addEventListener('close', () => {
@@ -54,7 +56,7 @@ export default function ChatModal({ setShowModal, receiver }) {
 
     const newData = { uid1: user.uid, chatMessage: inputValue };
     setInputValue('');
-    setChatMessages([...chatMessages, newData]);
+    setChatMessages((prevChatMessages) => [...prevChatMessages, newData]);
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { uploadImage } from '../api/database';
 import UploadingModal from './UploadingModal';
 
-export default function Upload({ setShowModal, user: { uid }, story_yn }) {
+export default function Upload({ setShowModal, user: { uid }, gallery_yn }) {
   const [files, setFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -13,7 +13,7 @@ export default function Upload({ setShowModal, user: { uid }, story_yn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsUploading(true);
-    uploadImage(uid, files, story_yn) // 이미지 업로드 함수 호출
+    uploadImage(uid, files, gallery_yn) // 이미지 업로드 함수 호출
       .then((res) => {
         console.log(res);
       })

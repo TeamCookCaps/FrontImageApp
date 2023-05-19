@@ -6,8 +6,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import Story from './pages/Story';
-import StoryDetail from './pages/StoryDetail';
+import Gallery from './pages/Gallery';
+import GalleryDetail from './pages/GalleryDetail';
 import LikePhoto from './pages/LikePhoto';
 import AllPhoto from './pages/AllPhoto';
 import PhotoDetail from './pages/PhotoDetail';
@@ -25,18 +25,18 @@ const router = createBrowserRouter([
     children: [
       { index: true, path: '/', element: <Home /> },
       {
-        path: '/story',
+        path: '/gallery',
         element: (
           <ProtectedRoute>
-            <Story />
+            <Gallery />
           </ProtectedRoute>
         ),
       },
       {
-        path: '/story/:storyId',
+        path: '/gallery/:galleryId',
         element: (
           <ProtectedRoute>
-            <StoryDetail />
+            <GalleryDetail />
           </ProtectedRoute>
         ),
       },
