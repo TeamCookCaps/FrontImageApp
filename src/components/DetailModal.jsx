@@ -85,8 +85,7 @@ export default function DetailModal({ onClose, info, user }) {
                         size : {result?.image_width} x {result?.image_height}
                       </li>
                       <li>
-                        category : {result?.parent_name} &gt;{' '}
-                        {result?.category_name}
+                        category : {result?.category_name}
                       </li>
                       <li className="pb-3">created : {getDate(result_date)}</li>
                       {result?.rgb_info && (

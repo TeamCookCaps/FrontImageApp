@@ -116,7 +116,7 @@ export default function PhotoDeatilDescription({
       />
       <div className="text-center text-3xl">
         <h2 className="text-4xl font-bold pb-5">
-          {category_name ? `${parent_name} > ${category_name}` : '기타'}
+          {category_name ? `${category_name}` : '기타'}
         </h2>
         <p className="text-gray-600 pb-4">width : {image_width}</p>
         <p className="text-gray-600 pb-4">height : {image_height}</p>
