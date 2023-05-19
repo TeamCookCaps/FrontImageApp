@@ -17,7 +17,9 @@ export default function Searchbar() {
   };
 
   const initSearch = () => {
-    navigate('/search', { state: { searchWord: `${text}`, color: `${hex}` } });
+    navigate('/search', {
+      state: { searchWord: `${text}`, color: `${hex}` },
+    });
     window.location.reload();
     displayClose();
     setText('');

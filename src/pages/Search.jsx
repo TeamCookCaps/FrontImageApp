@@ -62,6 +62,14 @@ export default function Search() {
     return <div>에러가 발생했습니다 : {error}</div>;
   }
 
+  // 검색 결과에서 shared 값이 true로 저장된 사용자만 필터링
+  const filteredUserList = result.user.filter(
+    (item) => localStorage.getItem(`shared-${item.uid}`) === 'true'
+  );
+  const filteredSearchList = result.searchList.filter(
+    (item) => localStorage.getItem(`shared-${item.uid}`) === 'true'
+  );
+
   return (
     <section className="flex flex-col gap-5 py-3 px-4">
       <header>
@@ -75,12 +83,12 @@ export default function Search() {
       </header>
       <section>
         <h3 className="text-2xl font-bold mb-4">사용자</h3>
-        {result.user.length === 0 && (
+        {filteredUserList.length === 0 && (
           <div className="text-xl"> 사용자 검색 결과가 없습니다! </div>
         )}
-        {result?.user.length !== 0 && (
+        {filteredUserList.length !== 0 && (
           <>
-            {result?.user.map((item) => (
+            {filteredUserList.map((item) => (
               <UserItem user={item} />
             ))}
           </>
@@ -89,10 +97,10 @@ export default function Search() {
       <hr />
       <section>
         <h3 className="text-2xl font-bold mb-4">이미지</h3>
-        {result.searchList.length === 0 && (
+        {filteredSearchList.length === 0 && (
           <div className="text-xl"> 이미지 검색 결과가 없습니다! </div>
         )}
-        {result.searchList.length !== 0 && (
+        {filteredSearchList.length !== 0 && (
           <>
             <Masonry
               className="flex animate-slide-fwd"
@@ -103,10 +111,13 @@ export default function Search() {
                 500: 1,
               }}
             >
-              {result &&
-                result?.searchList.map((search) => (
-                  <MasonryItem search={search} onOpenModal={handleOpenModal} />
-                ))}
+              {filteredSearchList.map((search) => (
+                <MasonryItem
+                  search={search}
+                  onOpenModal={handleOpenModal}
+                  key={search.id}
+                />
+              ))}
               {openModalId !== null && (
                 <DetailModal
                   onClose={handleCloseModal}
