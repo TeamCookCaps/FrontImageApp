@@ -13,8 +13,8 @@ export default function Gallery() {
   const [showModal, setShowModal] = useState(false);
   const gallery_yn = "Y";
 
-  const { isLoading, isFetching, error, data : result } = useQuery(
-    ['galleryImage'], () => getGalleryImage(user.uid),
+  const { isLoading, isFetching, error, data : galleryImages } = useQuery(
+    ['galleryImages'], () => getGalleryImage(user.uid),
   );
 
   /*if(isLoading || isFetching){
@@ -32,9 +32,9 @@ export default function Gallery() {
   return (
 	<>
 	<div class=/*"flex space-x-4 overflow-x-auto p-4"*/"flex flex-wrap p-4 -mx-4"> 
-		{result && result?.map((gallerycard) => (
+		{galleryImages && galleryImages?.map((galleryImages) => (
       <div class="w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-6">
-      <GalleryCard key={gallerycard.image_id} gallerycard={gallerycard}/>
+      <GalleryCard key={galleryImages.image_id} galleryImages={galleryImages}/>
       </div>
     ))}
 	</div>
