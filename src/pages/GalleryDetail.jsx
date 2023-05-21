@@ -3,19 +3,18 @@ import { useLocation } from 'react-router-dom';
 import { saveImageDescription, getImageDescription } from '../api/gallery';
 
 export default function StoryDetail() {
-  const {
-    state: { galleryImages },
-  } = useLocation();
-  
+  const { state: { galleryImages } = {} } = useLocation();
   const [description, setDescription] = useState('');
 
   useEffect(() => {
     // 이미지 설명을 DB에서 가져와서 설정
-    const fetchImageDescription = async () => {
-      const descriptionFromDB = await getImageDescription(galleryImages.id);
-      setDescription(descriptionFromDB || ''); // 기존에 저장된 설명이 없으면 빈 문자열로 설정
-    };
-    fetchImageDescription();
+    if (galleryImages && galleryImages.id) {
+      const fetchImageDescription = async () => {
+        const descriptionFromDB = await getImageDescription(galleryImages.id);
+        setDescription(descriptionFromDB || ''); // 기존에 저장된 설명이 없으면 빈 문자열로 설정
+      };
+      fetchImageDescription();
+    }
   }, []);
 
   const handleDescriptionChange = (event) => {
