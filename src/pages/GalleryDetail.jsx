@@ -3,11 +3,10 @@ import { useLocation } from 'react-router-dom';
 import { saveImageDescription, getImageDescription } from '../api/gallery';
 
 export default function StoryDetail() {
-  const { state: { galleryImages } = {} } = useLocation();
+  const { state: { galleryImages } } = useLocation();
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    // 이미지 설명을 DB에서 가져와서 설정
     if (galleryImages && galleryImages.id) {
       const fetchImageDescription = async () => {
         const descriptionFromDB = await getImageDescription(galleryImages.id);
@@ -15,16 +14,12 @@ export default function StoryDetail() {
       };
       fetchImageDescription();
     }
-  }, []);
+  },[galleryImages]);
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  // 이미지 설명 저장 함수
   const saveDescription = async () => {
     await saveImageDescription(galleryImages.id, description);
     console.log('이미지 설명이 저장되었습니다.');
+    window.location.reload();
   };
 
   return (
@@ -38,21 +33,24 @@ export default function StoryDetail() {
       </div>
       <div className="mt-4">
       <div className="mt-4">
-        <h3 className="font-bold">이미지 설명:</h3>
+        <h3 className="font-bold">이미지 설명</h3>
         <p>{galleryImages.description}</p>
       </div>
+      <div className="flex items-start mt-4">
         <textarea
-          className="w-80 h-24 p-2 border border-gray-300 rounded"
+          row={1}
+          className="w-80 h-22 p-2 border-gray-300 rounded align-self-start"
           placeholder="이미지 설명을 입력하세요..."
-          value={description}
-          onChange={handleDescriptionChange}
+          value={description.value}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <button
-          className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+          className="bg-yellow-300 hover:bg-yellow-500 text-black font-bold mt-2 ml-2 px-2 py-4 rounded align-self-start"
           onClick={saveDescription}
         >
           저장
         </button>
+        </div>
       </div>
     </div>
   );
