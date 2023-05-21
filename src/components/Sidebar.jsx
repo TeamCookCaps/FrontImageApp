@@ -24,11 +24,11 @@ export default function Navbar() {
           <p className="text-4xl font-light">Main</p>
         </Link>
         <Link
-          to="/story"
+          to="/gallery"
           className="flex items-center gap-2 transition-all hover:scale-105"
         >
           <AiFillGift className="text-pink-400 text-2xl" />
-          <p className="text-4xl font-light">Story</p>
+          <p className="text-4xl font-light">Gallery</p>
         </Link>
         <Link
           to="/trash"

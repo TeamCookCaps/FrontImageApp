@@ -10,7 +10,9 @@ export default function AllPhoto() {
 
   return (
     <>
-      <h2 className="text-4xl font-bold p-4">{photos[0].category_name}</h2>
+      <h2 className="text-4xl font-bold p-4">
+        {photos[0].category_name === null ? '기타' : photos[0].category_name}
+      </h2>
       <Masonry
         className="flex animate-slide-fwd"
         breakpointCols={{
