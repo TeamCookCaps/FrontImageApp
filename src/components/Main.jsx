@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getImageinfo } from '../api/database';
 import CategoryCard from './CategoryCard';
