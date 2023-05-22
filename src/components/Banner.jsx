@@ -18,16 +18,21 @@ export default function Banner() {
   return (
     <section className="items-center">
         <Swiper
-          cssMode={true}
+          allowTouchMove={false}
           slidesPerView={1}
           pagination={{ clickable: true }}
           className="mySwiper"
-          loop={false}
+          loop={true}
+          loopAdditionalSlides={1}
           navigation={true}
           modules={[Navigation, Pagination]}
           onActiveIndexChange={(swiper) => {
             console.log(swiper.activeIndex);
-          }} 
+          }}
+          // style={{
+          //   width: '480px',
+          //   padding: '50px 0px 50px'
+          // }}
         >
         {result && result?.map((recommand) => (
           <SwiperSlide>
@@ -38,6 +43,10 @@ export default function Banner() {
           <img
             src={recommand.image_url}
             alt="recommandImage"
+            // style={{
+            //   width: '100%',
+            //   height: '270px'
+            // }}  
           />
           </Link>
           </SwiperSlide>
