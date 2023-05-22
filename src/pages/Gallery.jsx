@@ -16,8 +16,8 @@ export default function Gallery() {
   const {
     isLoading,
     error,
-    data: initialGalleryImages, // 초기 갤러리 이미지 데이터
-    refetch: refetchGalleryImages, // 다시 불러오기 함수
+    data: initialGalleryImages,
+    refetch,
   } = useQuery(['galleryImages'], () => getGalleryImage(user.uid));
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Gallery() {
 
   const handleUploadSuccess = () => {
     setShowModal(false);
-    refetchGalleryImages(); // 갤러리 이미지 다시 불러오기
+    refetch();
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -66,7 +66,7 @@ export default function Gallery() {
           setShowModal={setShowModal}
           user={user}
           gallery_yn={gallery_yn}
-          onUploadSuccess={handleUploadSuccess} // 업로드 성공 핸들러 전달
+          onUploadSuccess={handleUploadSuccess}
         />
       )}
     </>
