@@ -2,24 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { saveImageDescription, getImageDescription } from '../api/gallery';
 
-export default function StoryDetail() {
+export default function GalleryDetail() {
   const {
-    state: { galleryImages },
+    state: { galleryImage },
   } = useLocation();
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    if (galleryImages && galleryImages.id) {
+    if (galleryImage && galleryImage.id) {
       const fetchImageDescription = async () => {
-        const descriptionFromDB = await getImageDescription(galleryImages.id);
+        const descriptionFromDB = await getImageDescription(galleryImage.id);
         setDescription(descriptionFromDB || ''); // 기존에 저장된 설명이 없으면 빈 문자열로 설정
       };
       fetchImageDescription();
     }
-  }, [galleryImages]);
+  }, [galleryImage]);
 
   const saveDescription = async () => {
-    await saveImageDescription(galleryImages.id, description);
+    await saveImageDescription(galleryImage.id, description);
     console.log('이미지 설명이 저장되었습니다.');
     window.location.reload();
   };
@@ -29,14 +29,14 @@ export default function StoryDetail() {
       <div className="max-w-full max-h-full">
         <img
           className="h-auto w-auto max-h-full max-w-full rounded-lg"
-          src={galleryImages.image_url}
-          alt={galleryImages.id}
+          src={galleryImage.image_url}
+          alt={galleryImage.id}
         />
       </div>
       <div className="mt-4">
         <div className="mt-4">
           <h3 className="font-bold">이미지 설명</h3>
-          <p>{galleryImages.description}</p>
+          <p>{galleryImage.description}</p>
         </div>
         <div className="flex items-start mt-4">
           <textarea

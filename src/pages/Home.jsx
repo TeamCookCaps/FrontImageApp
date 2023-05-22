@@ -9,7 +9,11 @@ import Upload from '../components/Upload';
 export default function Home() {
   const { user } = useAuthContext();
   const [showModal, setShowModal] = useState(false);
-  const gallery_yn = "N";
+  const gallery_yn = 'N';
+
+  const handleUploadSuccess = () => {
+    console.log('업로드 성공');
+  };
 
   return (
     <>
@@ -24,7 +28,14 @@ export default function Home() {
           />
         </>
       )}
-      {showModal && <Upload setShowModal={setShowModal} user={user} gallery_yn={gallery_yn}/>}
+      {showModal && (
+        <Upload
+          setShowModal={setShowModal}
+          user={user}
+          gallery_yn={gallery_yn}
+          onUploadSuccess={handleUploadSuccess}
+        />
+      )}
     </>
   );
 }

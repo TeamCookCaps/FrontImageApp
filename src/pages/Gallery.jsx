@@ -51,7 +51,7 @@ export default function Gallery() {
             <div class="w-full cursor-pointer sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-6">
               <GalleryCard
                 key={galleryImage.image_id}
-                galleryImages={galleryImage}
+                galleryImage={galleryImage}
               />
             </div>
           ))}
