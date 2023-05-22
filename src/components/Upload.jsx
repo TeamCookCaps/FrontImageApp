@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { uploadImage } from '../api/database';
 import UploadingModal from './UploadingModal';
 
-export default function Upload({ setShowModal, user: { uid }, gallery_yn }) {
+export default function Upload({
+  setShowModal,
+  user: { uid },
+  gallery_yn,
+  onUploadSuccess,
+}) {
   const [files, setFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -13,8 +18,9 @@ export default function Upload({ setShowModal, user: { uid }, gallery_yn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsUploading(true);
-    uploadImage(uid, files, gallery_yn) // 이미지 업로드 함수 호출
+    uploadImage(uid, files, gallery_yn)
       .then((res) => {
+        onUploadSuccess(); // 업로드 성공 시 핸들러 호출
         console.log(res);
       })
       .finally(() => {
@@ -31,8 +37,9 @@ export default function Upload({ setShowModal, user: { uid }, gallery_yn }) {
           <h2 className="text-2xl font-bold mb-4">Upload Image</h2>
           {files && (
             <div className="grid grid-cols-5 gap-4 mb-4">
-              {files.map((file) => (
+              {files.map((file, index) => (
                 <img
+                  key={index}
                   src={URL.createObjectURL(file)}
                   className="w-44 h-44 rounded-md object-cover"
                   alt="local file"
