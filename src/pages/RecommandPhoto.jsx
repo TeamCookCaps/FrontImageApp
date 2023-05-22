@@ -29,8 +29,9 @@ export default function RecommandPhoto() {
                 />
                 </button>
               </div>
-              <div className="mt-0 flex justify-end mr-2">
-                <p className="mt-1 text-base text-gray-500">{recommand.image_width} x {recommand.image_height}</p>
+              <div className="grid grid-cols-2 mt-1">
+                <div className="place-self-start text-lg text-gray-500 justify-end ml-1"># {recommand.category_name}</div>
+                <div className="place-self-end text-base text-gray-500 justify-end mr-2">{recommand.image_width} x {recommand.image_height}</div>
               </div>
             </div>
           ))}
