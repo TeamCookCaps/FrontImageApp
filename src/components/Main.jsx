@@ -27,7 +27,7 @@ export default function Main({ user: { uid } }) {
   }
 
   if (photos) {
-    favoriteImages = photos.filter((photo) => photo.favorite_yn == 'y');
+    favoriteImages = photos.filter((photo) => photo.favorite_yn === 'y');
   }
 
   if (isLoading) return <p>Loading...</p>;
