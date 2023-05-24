@@ -16,8 +16,8 @@ export default function Gallery() {
   const {
     isLoading,
     error,
-    data: initialGalleryImages, // 초기 갤러리 이미지 데이터
-    refetch: refetchGalleryImages, // 다시 불러오기 함수
+    data: initialGalleryImages,
+    refetch,
   } = useQuery(['galleryImages'], () => getGalleryImage(user.uid));
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Gallery() {
 
   const handleUploadSuccess = () => {
     setShowModal(false);
-    refetchGalleryImages(); // 갤러리 이미지 다시 불러오기
+    refetch();
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -48,7 +48,7 @@ export default function Gallery() {
       >
         {galleryImages &&
           galleryImages.map((galleryImage) => (
-            <div class="w-full cursor-pointer sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-6">
+            <div class="w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-6">
               <GalleryCard
                 key={galleryImage.image_id}
                 galleryImage={galleryImage}
@@ -66,7 +66,7 @@ export default function Gallery() {
           setShowModal={setShowModal}
           user={user}
           gallery_yn={gallery_yn}
-          onUploadSuccess={handleUploadSuccess} // 업로드 성공 핸들러 전달
+          onUploadSuccess={handleUploadSuccess}
         />
       )}
     </>

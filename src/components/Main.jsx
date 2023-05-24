@@ -1,17 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getImageinfo } from '../api/database';
 import CategoryCard from './CategoryCard';
 import { Link } from 'react-router-dom';
 import LikeCategoryCard from './LikeCategoryCard';
+import { BsPlusCircleFill } from 'react-icons/bs';
+import Upload from './Upload';
 
-export default function Main({ user: { uid } }) {
+export default function Main({ user }) {
   const {
     isLoading,
     error,
     data: photos,
-  } = useQuery(['photos'], () => getImageinfo(uid));
+    refetch,
+  } = useQuery(['photos'], () => getImageinfo(user.uid));
+
+  const [showModal, setShowModal] = useState(false);
+  const gallery_yn = 'N';
   let favoriteImages = [];
+
+  const handleUploadSuccess = () => {
+    refetch();
+  };
 
   // 카테고리별로 그룹핑
   const categoryMap = new Map();
@@ -71,6 +81,18 @@ export default function Main({ user: { uid } }) {
             ))}
         </ul>
       </section>
+      <BsPlusCircleFill
+        className="text-7xl fixed bottom-10 right-10 hover:cursor-pointer"
+        onClick={() => setShowModal(true)}
+      />
+      {showModal && (
+        <Upload
+          setShowModal={setShowModal}
+          user={user}
+          gallery_yn={gallery_yn}
+          onUploadSuccess={handleUploadSuccess}
+        />
+      )}
     </section>
   );
 }
