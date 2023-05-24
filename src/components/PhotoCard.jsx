@@ -75,7 +75,7 @@ export default function PhotoCard({ photo, photos }) {
       <img
         className={`${
           imageLoaded ? '' : 'hidden'
-        } h-full w-full cursor-pointer object-cover transition-all ${
+        } h-full w-full shadow-md cursor-pointer object-cover transition-all ${
           hovered ? 'scale-95' : 'scale-100'
         } hover:ease-out`}
         src={photo.image_url}

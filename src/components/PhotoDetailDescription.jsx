@@ -14,7 +14,7 @@ import { downloadPhoto } from '../utils/downloadUtils';
 import { getDate } from '../utils/dateUtils';
 import { getImageName } from '../utils/imageUtils';
 
-export default function PhotoDeatilDescription({
+export default function PhotoDetailDescription({
   photo: {
     image_id,
     image_width,

@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RiCloseLine } from 'react-icons/ri';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import PhotoDeatilDescription from '../components/PhotoDeatilDescription';
-import { getImageName } from '../utils/imageUtils';
+import PhotoDetailDescription from '../components/PhotoDetailDescription';
+import { calculateImageSize, getImageName } from '../utils/imageUtils';
 
 export default function PhotoDetail() {
   const navigate = useNavigate();
@@ -92,7 +92,7 @@ export default function PhotoDetail() {
             <IoIosArrowForward onClick={handleGoNext} size={100} />
           </div>
         </div>
-        <PhotoDeatilDescription photo={photo} photos={photos} />
+        <PhotoDetailDescription photo={photo} photos={photos} />
       </div>
       <button
         onClick={handleGoBack}
@@ -102,28 +102,4 @@ export default function PhotoDetail() {
       </button>
     </section>
   );
-}
-
-// 원본 비율 유지하면서 동적으로 스타일 적용하기 위한 함수
-function calculateImageSize(imageSize, containerSize) {
-  if (
-    imageSize.width &&
-    imageSize.height &&
-    containerSize.width &&
-    containerSize.height
-  ) {
-    const containerRatio = containerSize.width / containerSize.height;
-    const imageRatio = imageSize.width / imageSize.height;
-    let newWidth, newHeight;
-    if (containerRatio > imageRatio) {
-      newWidth = containerSize.height * imageRatio;
-      newHeight = containerSize.height;
-    } else {
-      newWidth = containerSize.width;
-      newHeight = containerSize.width / imageRatio;
-    }
-    return { width: newWidth, height: newHeight };
-  } else {
-    return { width: 0, height: 0 };
-  }
 }
