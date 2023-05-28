@@ -6,22 +6,32 @@ import { getImageinfo } from '../api/database';
 import Masonry from 'react-masonry-css';
 import { useNavigate } from 'react-router-dom';
 import { getImageName } from '../utils/imageUtils';
+import { getFavoriteImages } from '../api/favorite';
 
 export default function LikePhoto() {
   const { user } = useAuthContext();
+  // const {
+  //   isLoading,
+  //   isFetching,
+  //   error,
+  //   data: result,
+  // } = useQuery(['images'], () => getImageinfo(user.uid));
+
   const {
     isLoading,
     isFetching,
     error,
-    data: result,
-  } = useQuery(['images'], () => getImageinfo(user.uid));
-  const favoriteImages = result?.filter((photo) => photo.favorite_yn == 'y');
+    data: favoriteImages,
+  } = useQuery(['favoriteImages'], () => getFavoriteImages(user.uid));
+
+  //const favoriteImages = favoriteImageInfo?.filter((photo) => photo.favorite_yn == 'y');
+  //let favoriteImages = Object.entries(favoriteImageInfo);
   const navigate = useNavigate();
 
   const handleNavigate = (photo) => {
     const imageName = getImageName(photo?.image_url);
     navigate(`/allPhoto/${photo?.category_name}/${imageName}`, {
-      state: { photo, favoriteImages },
+      state: { photo, photos: favoriteImages },
     });
   };
 

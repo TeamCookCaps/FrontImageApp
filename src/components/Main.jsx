@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import LikeCategoryCard from './LikeCategoryCard';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import Upload from './Upload';
+import { getFavoriteImages } from '../api/favorite';
 
 export default function Main({ user }) {
   const {
@@ -15,9 +16,15 @@ export default function Main({ user }) {
     refetch,
   } = useQuery(['photos'], () => getImageinfo(user.uid));
 
+  const {
+    isLoading2,
+    error2,
+    data: favoriteImages,
+  } = useQuery(['favoriteImages'], () => getFavoriteImages(user.uid));
+
   const [showModal, setShowModal] = useState(false);
   const gallery_yn = 'N';
-  let favoriteImages = [];
+  //let favoriteImages = [];
 
   const handleUploadSuccess = () => {
     refetch();
@@ -36,12 +43,15 @@ export default function Main({ user }) {
     });
   }
 
-  if (photos) {
-    favoriteImages = photos.filter((photo) => photo.favorite_yn === 'y');
-  }
+  // if (favoriteImageInfo) {
+  //   favoriteImages = favoriteImageInfo.filter((image) => image?.image_id == 155)
+  // }
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  // console.log("favoriteImageInfo : " + favoriteImageInfo);
+  console.log("favoriteImages : " + favoriteImages);
+
+  if (isLoading || isLoading2) return <p>Loading...</p>;
+  if (error || error2) return <p>{error}</p>;
 
   return (
     <section className="flex flex-col gap-16 py-14 px-4">

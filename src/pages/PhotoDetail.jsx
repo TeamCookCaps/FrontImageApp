@@ -44,7 +44,7 @@ export default function PhotoDetail() {
     }, 500);
   };
   const handleGoPrev = () => {
-    const currentIndex = photos.findIndex((p) => p.id === photo.id);
+    const currentIndex = photos.findIndex((p) => p.image_id === photo.image_id);
     const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
     navigate(
       `/allPhoto/${photos[prevIndex].category_name}/${getImageName(
@@ -57,7 +57,7 @@ export default function PhotoDetail() {
     );
   };
   const handleGoNext = () => {
-    const currentIndex = photos.findIndex((p) => p.id === photo.id);
+    const currentIndex = photos.findIndex((p) => p.image_id === photo.image_id);
     const nextIndex = (currentIndex + 1) % photos.length;
     navigate(
       `/allPhoto/${photos[nextIndex].category_name}/${getImageName(

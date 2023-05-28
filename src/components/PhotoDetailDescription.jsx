@@ -16,6 +16,7 @@ import { getImageName } from '../utils/imageUtils';
 
 export default function PhotoDetailDescription({
   photo: {
+    uid,
     image_id,
     image_width,
     image_height,
@@ -159,13 +160,13 @@ export default function PhotoDetailDescription({
           <FiDownload />
           <span>다운로드</span>
         </button>
-        <button
+        {(uid == user?.uid) && (<button
           className="bg-gray-500 text-white px-4 py-3 rounded-lg flex items-center space-x-2 whitespace-nowrap"
           onClick={handleDelete}
         >
           <AiFillDelete />
           <span>삭제</span>
-        </button>
+        </button>)}
       </div>
     </div>
   );

@@ -3,11 +3,14 @@ import { HiOutlineHeart, HiHeart, HiOutlineDownload } from 'react-icons/hi';
 import { useLike } from '../hook/useLike';
 import { downloadPhoto } from '../utils/downloadUtils';
 import { getDate } from '../utils/dateUtils';
+import { useNavigate } from 'react-router';
+import { HiHome } from 'react-icons/hi';
 
 export default function DetailModal({ onClose, info, user }) {
   const [result, setResult] = useState(info);
   const result_date = new Date(result?.image_date).toString();
   const [like, setLike] = useState(result?.favorite_yn);
+  const navigate = useNavigate();
 
   const likeMutate = useLike('data'); // data가 업데이트 키
 
@@ -38,6 +41,12 @@ export default function DetailModal({ onClose, info, user }) {
     const g = rgb.green.toString(16).padStart(2, '0');
     const b = rgb.blue.toString(16).padStart(2, '0');
     return `#${r}${g}${b}`;
+  };
+
+  const handleGoPage = () => {
+    navigate(`/user/${user?.uid}`,{
+      state: { user },
+    });
   };
 
   return (
@@ -125,6 +134,12 @@ export default function DetailModal({ onClose, info, user }) {
                             }}
                           />
                         </div>
+                      </li>
+                      <li>
+                      <HiHome
+                        className="flex text-3xl text-gray-400 hover:text-gray-700 cursor-pointer"
+                        onClick={handleGoPage}
+                      />
                       </li>
                     </ul>
                   </div>
