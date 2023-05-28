@@ -3,11 +3,11 @@ import { HiHeart } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { getImageName } from '../utils/imageUtils';
 
-export default function LikeCategoryCard({ photo: { id, image_id, image_width, image_height, image_date, image_location, parent_name, category_name, image_url, favorite_yn, delete_yn } , photos}) {
+export default function LikeCategoryCard({ photo: { uid, image_id, image_width, image_height, image_date, image_location, parent_name, category_name, image_url, favorite_yn, delete_yn } , photos}) {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate()
   const imageName = getImageName(image_url);
-  const photo = { id, image_id, image_width, image_height, image_date, image_location, parent_name, category_name, image_url, favorite_yn, delete_yn }
+  const photo = { uid, image_id, image_width, image_height, image_date, image_location, parent_name, category_name, image_url, favorite_yn, delete_yn }
 
   const handleNavigate = () =>
   navigate(`/allPhoto/${category_name}/${imageName}`, {
@@ -23,7 +23,7 @@ export default function LikeCategoryCard({ photo: { id, image_id, image_width, i
             hovered ? 'scale-95' : 'scale-100'
           } hover:cursor-pointer hover:ease-out`}
           src={image_url}
-          alt={id}
+          alt={image_id}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           onClick={() => handleNavigate()}
