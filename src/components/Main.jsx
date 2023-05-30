@@ -65,9 +65,12 @@ export default function Main({ user }) {
         <header className="flex justify-between pb-5">
           <h2 className="text-3xl font-bold">좋아요 누른 사진</h2>
           {/* <Link to={"/like"} state={{ user: user }}> */}
-            <button className="border rounded-lg px-4 py-2 mr-11 font-normal text-xl hover:bg-yellow-300 hover:border-yellow-300" onClick={handleNavigate}>
-              모두 보기
-            </button>
+          <button
+            className="border rounded-lg px-4 py-2 mr-11 font-normal text-xl hover:bg-yellow-300 hover:border-yellow-300"
+            onClick={handleNavigate}
+          >
+            모두 보기
+          </button>
           {/* </Link> */}
         </header>
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
@@ -93,6 +96,7 @@ export default function Main({ user }) {
                 categoryName={categoryName}
                 photos={photos}
                 numOfPhotos={photos.length}
+                refetch={refetch}
               />
             ))}
         </ul>
