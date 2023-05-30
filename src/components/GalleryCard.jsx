@@ -15,6 +15,7 @@ export default function GalleryCard({ galleryImage, refetch }) {
   const [description, setDescription] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const image = new Image();
@@ -56,11 +57,20 @@ export default function GalleryCard({ galleryImage, refetch }) {
       console.error(error);
     }
   };
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+    setIsHovered(false);
+  };
 
   return (
     <div
       className="group relative h-60 w-60 md:w-72 md:h-72 lg:w-80 lg:h-80"
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <ToastContainer
         position="top-center"
@@ -79,8 +89,7 @@ export default function GalleryCard({ galleryImage, refetch }) {
           w-full
           h-full
           shadow-lg
-          group-hover:opacity-90
-          sm:group-hover:opacity-0
+          ${isHovered ? 'opacity-90 sm:opacity-100' : 'opacity-100'}
         `}
         src={galleryImage.image_url}
         alt={galleryImage.id}
@@ -89,20 +98,16 @@ export default function GalleryCard({ galleryImage, refetch }) {
       />
       <div
         className={`
-          opacity-0
+        ${isHovered ? 'opacity-100' : 'opacity-0'}
           absolute
           top-0
           transition
           delay-300
           duration-200
-          z-10
-          invisible
-          sm:visible
           w-full
-          scale-0
-          group-hover:${isTallImage ? 'scale-150' : 'scale-125'}
-          group-hover:opacity-100
-          ${!isTallImage && 'group-hover:-translate-y-[5vw]'}
+          z-10
+          ${isTallImage ? 'scale-150' : 'scale-125'}
+          ${!isTallImage && '-translate-y-[5vw]'}
         `}
       >
         <img
