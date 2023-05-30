@@ -68,7 +68,7 @@ export default function GalleryCard({ galleryImage, refetch }) {
 
   return (
     <div
-      className="group relative h-60 w-60 md:w-72 md:h-72 lg:w-80 lg:h-80"
+      className="relative h-60 w-60 md:w-72 md:h-72 lg:w-80 lg:h-80"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -89,7 +89,7 @@ export default function GalleryCard({ galleryImage, refetch }) {
           w-full
           h-full
           shadow-lg
-          ${isHovered ? 'opacity-90 sm:opacity-100' : 'opacity-100'}
+          ${isHovered ? 'opacity-0' : 'opacity-100'}
         `}
         src={galleryImage.image_url}
         alt={galleryImage.id}
