@@ -30,7 +30,7 @@ export default function Upload({
   };
 
   return (
-    <section className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <section className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
       {isUploading && <UploadingModal />}
       <div className="w-4/6 h-5/6 overflow-y-auto bg-white rounded-lg p-8 flex flex-col">
         <form onSubmit={handleSubmit} className="flex-grow">
