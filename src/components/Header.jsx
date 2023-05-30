@@ -11,7 +11,7 @@ export default function Header() {
   const { user, login, logout } = useAuthContext();
   const [shared, setShared] = useState(() => {
     const userShared = localStorage.getItem(`shared-${user?.uid}`);
-    return userShared ? JSON.parse(userShared) : true;
+    return userShared ? JSON.parse(userShared) : false;
   });
 
   const handleToggle = () => {
