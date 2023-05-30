@@ -52,6 +52,7 @@ export default function Gallery() {
               <GalleryCard
                 key={galleryImage.image_id}
                 galleryImage={galleryImage}
+                refetch={refetch}
               />
             </div>
           ))}
