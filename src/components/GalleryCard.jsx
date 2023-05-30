@@ -89,7 +89,7 @@ export default function GalleryCard({ galleryImage, refetch }) {
           w-full
           h-full
           shadow-lg
-          ${isHovered ? 'opacity-90 sm:opacity-100' : 'opacity-100'}
+          ${isHovered ? 'opacity-0' : 'opacity-100'}
         `}
         src={galleryImage.image_url}
         alt={galleryImage.id}

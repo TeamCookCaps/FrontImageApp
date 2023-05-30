@@ -3,8 +3,17 @@ import { FaEllipsisV } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { downloadPhotosAsZip } from '../utils/downloadUtils';
+import { useAuthContext } from '../context/AuthContext';
+import { removeOneImage } from '../api/trash';
+import { toast, ToastContainer } from 'react-toastify';
 
-export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
+export default function CategoryCard({
+  photos,
+  categoryName,
+  numOfPhotos,
+  refetch,
+}) {
+  const { user } = useAuthContext();
   const [hovered, setHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -17,10 +26,35 @@ export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
     await downloadPhotosAsZip(photos, categoryName);
     setIsOpen(false); // 다운로드 버튼 클릭 후 드롭다운 메뉴 닫기
   };
+  const handleDelete = async () => {
+    try {
+      for (const photo of photos) {
+        await removeOneImage(user.uid, photo.id);
+      }
+      refetch();
+      toast.success('사진이 삭제되었습니다!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+    } catch (error) {
+      toast.error('삭제 도중 오류가 났습니다!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+      });
+      console.error(error);
+    }
+  };
 
   return (
     <li className="flex flex-col pb-24 shrink-0">
       <div className="relative w-48 h-48">
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          pauseOnHover={false}
+        />
         <img
           className={`w-48 h-48 object-cover rounded-xl shadow-md transition duration-300 ${
             hovered ? 'scale-95' : 'scale-100'
@@ -50,11 +84,19 @@ export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
               >
                 <motion.li
                   onClick={handleDownload}
-                  className="cursor-pointer"
+                  className="cursor-pointer mb-2"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   다운로드
+                </motion.li>
+                <motion.li
+                  onClick={handleDelete}
+                  className="cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  삭제하기
                 </motion.li>
               </motion.ul>
             )}
