@@ -5,12 +5,28 @@ import { downloadPhoto } from '../utils/downloadUtils';
 import { getDate } from '../utils/dateUtils';
 import { useNavigate } from 'react-router';
 import { HiHome } from 'react-icons/hi';
+// import { getUserInfo } from '../api/database';
+// import { useQuery } from '@tanstack/react-query';
+// import UserItem from './UserItem';
 
 export default function DetailModal({ onClose, info, user }) {
   const [result, setResult] = useState(info);
   const result_date = new Date(result?.image_date).toString();
   const [like, setLike] = useState(result?.favorite_yn);
   const navigate = useNavigate();
+
+  // const {
+  //   isLoading,
+  //   error,
+  //   data: usersInfo,
+  // } = useQuery(['userInfo'], () => getUserInfo(info?.uid));
+  // let userInfo = {}
+  // if(usersInfo) {
+  //   userInfo = usersInfo[0]
+  // }
+
+  //console.log("nickname : " + userInfo?.nick_name)
+  //console.log("profileImage : " + userInfo?.profile_img)
 
   const likeMutate = useLike('data'); // data가 업데이트 키
 
@@ -43,11 +59,17 @@ export default function DetailModal({ onClose, info, user }) {
     return `#${r}${g}${b}`;
   };
 
-  const handleGoPage = () => {
-    navigate(`/user/${user?.uid}`,{
-      state: { user },
-    });
-  };
+
+  
+
+  // async function handleGoPage() {
+  //   navigate(`/user/${userInfo?.uid}`,{
+  //     state: { user: user },
+  //   });
+  // };
+
+  // if (isLoading) return <p>Loading...</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -135,12 +157,13 @@ export default function DetailModal({ onClose, info, user }) {
                           />
                         </div>
                       </li>
-                      <li>
+                      {/* <li>
                       <HiHome
                         className="flex text-3xl text-gray-400 hover:text-gray-700 cursor-pointer"
                         onClick={handleGoPage}
                       />
-                      </li>
+                      <UserItem user={userInfo} />
+                      </li> */}
                     </ul>
                   </div>
                 </div>

@@ -13,6 +13,7 @@ import animationData from '../lotties/heart-fav.json';
 import { downloadPhoto } from '../utils/downloadUtils';
 import { getDate } from '../utils/dateUtils';
 import { getImageName } from '../utils/imageUtils';
+import { useEffect } from 'react';
 
 export default function PhotoDetailDescription({
   photo: {
@@ -33,7 +34,7 @@ export default function PhotoDetailDescription({
   const { user } = useAuthContext();
   const [isAnimated, setIsAnimated] = useState(false);
   const [like, setLike] = useState(() => {
-    return localStorage.getItem(`photo-${image_id}`) || favorite_yn;
+    return favorite_yn || localStorage.getItem(`photo-${image_id}`);
   });
   const updateKey = `photo-${image_id}`;
   const updateDeleteKey = `photo-deleted-${image_id}`;
@@ -50,6 +51,12 @@ export default function PhotoDetailDescription({
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
+
+  useEffect(() => {
+    setLike(favorite_yn)
+  }, []);
+  console.log("favorite_yn : " + favorite_yn);
+  console.log("local? : " + localStorage.getItem(`photo-${image_id}`))
 
   const handleLikeClick = () => {
     const newLike = like === 'y' ? 'n' : 'y';
@@ -151,6 +158,13 @@ export default function PhotoDetailDescription({
             <span>취소</span>
           </button>
         )}
+        {(uid == user?.uid) && (<button
+          className="bg-gray-500 text-white px-4 py-3 rounded-lg flex items-center space-x-2 whitespace-nowrap"
+          onClick={handleDelete}
+        >
+          <AiFillDelete />
+          <span>삭제</span>
+        </button>)}
         <button
           className="bg-yellow-300 text-white px-4 py-3 rounded-lg flex items-center space-x-2 whitespace-nowrap"
           onClick={() => {
@@ -160,13 +174,6 @@ export default function PhotoDetailDescription({
           <FiDownload />
           <span>다운로드</span>
         </button>
-        {(uid == user?.uid) && (<button
-          className="bg-gray-500 text-white px-4 py-3 rounded-lg flex items-center space-x-2 whitespace-nowrap"
-          onClick={handleDelete}
-        >
-          <AiFillDelete />
-          <span>삭제</span>
-        </button>)}
       </div>
     </div>
   );

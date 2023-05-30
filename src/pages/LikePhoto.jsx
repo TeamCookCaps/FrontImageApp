@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
@@ -7,9 +7,20 @@ import Masonry from 'react-masonry-css';
 import { useNavigate } from 'react-router-dom';
 import { getImageName } from '../utils/imageUtils';
 import { getFavoriteImages } from '../api/favorite';
+import { useLocation } from 'react-router-dom';
 
 export default function LikePhoto() {
-  const { user } = useAuthContext();
+  //const { user } = useAuthContext();
+  // const {
+  //   state: { user },
+  // } = useLocation();
+  const location = useLocation()
+  const [userId, setUserId] = useState(
+    location.state?.userId
+  );
+  //const user = location.state.user
+  //const { user } = useLocation()
+  console.log("user : " + userId)
   // const {
   //   isLoading,
   //   isFetching,
@@ -22,7 +33,7 @@ export default function LikePhoto() {
     isFetching,
     error,
     data: favoriteImages,
-  } = useQuery(['favoriteImages'], () => getFavoriteImages(user.uid));
+  } = useQuery(['favoriteImages'], () => getFavoriteImages(userId));
 
   //const favoriteImages = favoriteImageInfo?.filter((photo) => photo.favorite_yn == 'y');
   //let favoriteImages = Object.entries(favoriteImageInfo);
