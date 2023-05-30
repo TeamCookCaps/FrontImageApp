@@ -51,7 +51,7 @@ export default function CategoryCard({ photos, categoryName, numOfPhotos }) {
                 <motion.li
                   onClick={handleDownload}
                   className="cursor-pointer"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   다운로드
