@@ -13,7 +13,7 @@ export default function PhotoCard({ photo, photos }) {
   const [hovered, setHovered] = useState(false);
   const [isAnimated, setIsAnimated] = useState(false);
   const [like, setLike] = useState(() => {
-    return localStorage.getItem(`photo-${photo.image_id}`) || photo.favorite_yn;
+    return photo.favorite_yn || localStorage.getItem(`photo-${photo.image_id}`);
   });
   const [deleted] = useState(() => {
     return (
