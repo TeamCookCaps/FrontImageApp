@@ -26,7 +26,7 @@ export default function Main({ user }) {
   const [showModal, setShowModal] = useState(false);
   const gallery_yn = 'N';
   //let favoriteImages = [];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleUploadSuccess = () => {
     refetch();
   };
@@ -47,14 +47,14 @@ export default function Main({ user }) {
   const handleNavigate = () =>
     navigate(`/like`, {
       state: { userId: user.uid },
-  });
+    });
 
   // if (favoriteImageInfo) {
   //   favoriteImages = favoriteImageInfo.filter((image) => image?.image_id == 155)
   // }
 
   // console.log("favoriteImageInfo : " + favoriteImageInfo);
-  console.log("favoriteImages : " + favoriteImages);
+  console.log('favoriteImages : ' + favoriteImages);
 
   if (isLoading || isLoading2) return <p>Loading...</p>;
   if (error || error2) return <p>{error}</p>;
@@ -64,14 +64,12 @@ export default function Main({ user }) {
       <section className="mb-6">
         <header className="flex justify-between pb-5">
           <h2 className="text-3xl font-bold">좋아요 누른 사진</h2>
-          {/* <Link to={"/like"} state={{ user: user }}> */}
           <button
             className="border rounded-lg px-4 py-2 mr-11 font-normal text-xl hover:bg-yellow-300 hover:border-yellow-300"
             onClick={handleNavigate}
           >
             모두 보기
           </button>
-          {/* </Link> */}
         </header>
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {favoriteImages &&

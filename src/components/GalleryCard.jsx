@@ -106,8 +106,8 @@ export default function GalleryCard({ galleryImage, refetch }) {
           duration-200
           w-full
           z-10
-          ${isTallImage ? 'scale-150' : 'scale-125'}
-          ${!isTallImage && '-translate-y-[5vw]'}
+          ${isHovered && isTallImage ? 'scale-150' : 'scale-125'}
+          ${isHovered && !isTallImage && '-translate-y-[5vw]'}
         `}
       >
         <img
