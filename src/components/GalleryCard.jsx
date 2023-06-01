@@ -11,21 +11,12 @@ import { toast, ToastContainer } from 'react-toastify';
 export default function GalleryCard({ galleryImage, refetch }) {
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const [isTallImage, setIsTallImage] = useState(false);
   const [description, setDescription] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    const image = new Image();
-    image.src = galleryImage.image_url;
-    image.onload = () => {
-      const aspectRatio = image.width / image.height;
-      setIsTallImage(aspectRatio > 1); // 세로 길이가 더 긴 이미지인지 확인
-    };
-
-    // 이미지 설명을 가져오는 API 호출
     getImageDescription(galleryImage.id) //
       .then((response) => {
         setDescription(response[0].description);
@@ -89,56 +80,27 @@ export default function GalleryCard({ galleryImage, refetch }) {
           w-full
           h-full
           shadow-lg
-          ${isHovered ? 'opacity-0' : 'opacity-100'}
         `}
         src={galleryImage.image_url}
         alt={galleryImage.id}
         onClick={handleNavigate}
         onLoad={handleImageLoad}
       />
-      <div
-        className={`
-        ${isHovered ? 'opacity-100' : 'opacity-0'}
-          absolute
-          top-0
-          transition
-          delay-300
-          duration-200
-          w-full
-          z-10
-          ${isHovered && isTallImage ? 'scale-150' : 'scale-125'}
-          ${isHovered && !isTallImage && '-translate-y-[5vw]'}
-        `}
-      >
-        <img
-          className="
-            cursor-pointer
-            object-cover
-            transition
-            duration
-            shadow-lg
-            rounded-t-md
-            w-full
-            h-full
-          "
-          src={galleryImage.image_url}
-          alt={galleryImage.id}
-          onClick={handleNavigate}
-        />
-        <div
-          className="
-            z-10
-            bg-zinc-800
-            p-2
-            lg:p-4
-            absolute
-            w-full
-            transition
-            shadow-md
-            rounded-b-md
-          "
+      {isHovered && (
+        <motion.div
+          initial={{ opacity: 0, scale: 1 }}
+          animate={{ opacity: 1, scale: 1.5 }}
+          exit={{ opacity: 0, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="absolute top-0 w-full z-10"
         >
-          <div className="flex flex-col gap-3">
+          <img
+            className="cursor-pointer object-cover rounded-t-md w-full h-full"
+            src={galleryImage.image_url}
+            alt={galleryImage.id}
+            onClick={handleNavigate}
+          />
+          <div className="relative bg-zinc-800 p-2 lg:p-4 transition-shadow duration-200 shadow-md rounded-b-md">
             <div className="flex items-center justify-between">
               <h2 className="text-yellow-300 font-bold text-xl">Description</h2>
               <FaEllipsisV
@@ -169,8 +131,9 @@ export default function GalleryCard({ galleryImage, refetch }) {
               {description ? description : '이미지 설명 없음'}
             </span>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      )}
+
       {!imageLoaded && (
         <div className="flex justify-center items-center w-full h-full">
           <svg
