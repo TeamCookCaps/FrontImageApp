@@ -74,11 +74,12 @@ export default function Search() {
     <section className="flex flex-col gap-5 py-3 px-4">
       <header>
         <h2 className="mb-6 text-3xl font-bold tracking-tight text-black justify-start">
-          {searchWord &&
-            color &&
-            `"${searchWord}" 키워드 ${color} 색상 검색 결과`}
-          {searchWord && !color && `"${searchWord}" 검색 결과`}
-          {color && !searchWord && `${color} 색상 검색 결과`}
+        {searchWord &&
+          color &&
+          <><span>"{searchWord}" 키워드 </span><span style={{ backgroundColor: color }}> {color}</span> 색상 검색 결과</>
+        }
+        {searchWord && !color && `"${searchWord}" 검색 결과`}
+        {color && !searchWord && <><span style={{ backgroundColor: color }}>{color}</span> 색상 검색 결과</>}
         </h2>
       </header>
       <section>
