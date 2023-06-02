@@ -80,7 +80,7 @@ export default function CategoryCard({
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="absolute top-60 right-1 bg-white py-2 px-4 shadow-md rounded"
+                className="absolute top-60 right-1 bg-white py-2 px-4 shadow-md rounded z-30"
               >
                 <motion.li
                   onClick={handleDownload}
